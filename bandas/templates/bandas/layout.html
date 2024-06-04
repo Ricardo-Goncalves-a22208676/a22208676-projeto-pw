@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bandas/styles.css' %}">
+    <link rel="icon" href="{% static 'bandas/favicon.ico' %}" type="x-icon">
+
+    <!-- Preconnect for Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Link to the specific Google Font (Poetsen One) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome script -->
+    <script src="https://kit.fontawesome.com/c1593d761b.js" crossorigin="anonymous"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        {% block style %}
+        {% endblock %}
+    </style>
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <div class="container">
+        <header id="header">
+            <nav class="nav-container">
+                <div class="nav-left">
+                    <a href="{% url 'bandas:index' %}">
+                        Bandas
+                        <i class="fa-solid fa-guitar fa-xl"></i>
+                    </a>
+                </div>
+            <div class="nav-right">
+            {% if request.user.is_authenticated %}
+                <div class="user-info">
+                    <i class="fa-solid fa-user"></i>
+                    <span class="username">Username: {{ request.user.username }}</span>
+                    <a href="{% url 'bandas:logout' %}" class="btn-logout">
+                        <button>Logout</button>
+                    </a>
+                </div>
+            {% else %}
+                <a href="{% url 'bandas:login' %}" class="btn-login">
+                    <button>Login</button>
+                </a>
+                <a href="{% url 'bandas:registo' %}" class="btn-register">
+                    <button>Registar</button>
+                </a>
+            {% endif %}
+        </div>
+
+            </nav>
+        </header>
+
+        <main id="main-content" class="main">
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer id="footer">
+            <h6 class="footer-text">Contact us at: support@bandas.com</h6>
+        </footer>
+    </div>
+</body>
+</html>

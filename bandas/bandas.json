@@ -1,0 +1,52 @@
+[
+  {
+    "nome": "Led Zeppelin",
+    "nacionalidade": "Reino Unido",
+    "ano_criacao": 1968
+  },
+  {
+    "nome": "The Beatles",
+    "nacionalidade": "Reino Unido",
+    "ano_criacao": 1960
+  },
+  {
+    "nome": "Pink Floyd",
+    "nacionalidade": "Reino Unido",
+    "ano_criacao": 1965
+  },
+  {
+    "nome": "The Rolling Stones",
+    "nacionalidade": "Reino Unido",
+    "ano_criacao": 1962
+  },
+  {
+    "nome": "Queen",
+    "nacionalidade": "Reino Unido",
+    "ano_criacao": 1970
+  },
+  {
+    "nome": "The Who",
+    "nacionalidade": "Reino Unido",
+    "ano_criacao": 1964
+  },
+  {
+    "nome": "Nirvana",
+    "nacionalidade": "Estados Unidos",
+    "ano_criacao": 1987
+  },
+  {
+    "nome": "Guns N' Roses",
+    "nacionalidade": "Estados Unidos",
+    "ano_criacao": 1985
+  },
+  {
+    "nome": "AC/DC",
+    "nacionalidade": "Austrália",
+    "ano_criacao": 1973
+  },
+  {
+    "nome": "Aerosmith",
+    "nacionalidade": "Estados Unidos",
+    "ano_criacao": 1970
+  }
+]

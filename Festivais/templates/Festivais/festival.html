@@ -1,0 +1,12 @@
+{% extends 'Festivais/layout.html' %}
+
+{% block content %}
+    <h2>{{ festival.nome }}</h2>
+    <img src="{{ festival.imagem.url }}" alt="{{ festival.nome }}">
+    <p>Localização: {{ festival.localizacao.nome }}</p>
+    <p>Bandas: {{ bandas|join:", " }}</p>
+    <!-- Adicione a foto do festival aqui -->
+    <a href="{% url 'Festivais:festivais' %}">Voltar para Festivais</a>
+
+
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends "meteo/layout.html" %}
+
+{% block title %}Documentação da API Meteo{% endblock %}
+
+{% block header %}
+<h1>Documentação da API Meteo</h1>
+{% endblock %}
+
+{% block content %}
+<nav>
+    <div class="navigation-links">
+    <a href="{% url 'meteo:tempo_hoje_lisboa' %}" class="nav-link">Ver Previsão Hoje em Lisboa</a>
+    <a href="{% url 'meteo:index' %}" class="nav-link">Ver Previsão de 5 Dias</a>
+</nav>
+
+<p>O IPMA oferece uma API que disponibiliza dados de previsão meteorológica para diversas cidades portuguesas.</p>
+<p>Na página <a href="https://api.ipma.pt/">https://api.ipma.pt/</a>, encontra-se a descrição dos endpoints e parâmetros.</p>
+<p>A API também fornece:</p>
+
+<h3>1. Lista de Cidades</h3>
+<p>Endpoint: <code>/api/lista_cidades/</code></p>
+<p>Método: GET</p>
+<p>Descrição: Retorna uma lista de todas as cidades disponíveis.</p>
+<p><a href="{% url 'meteo:api_lista_cidades' %}">Ver JSON</a></p>
+<p>Exemplo de Resposta:</p>
+<div class ="pres">
+<pre>
+{
+    "data": [
+        {
+            "idRegiao": 1,
+            "idAreaAviso": "AVR",
+            "idConcelho": 5,
+            "globalIdLocal": 1010500,
+            "latitude": "40.6413",
+            "idDistrito": 1,
+            "local": "Aveiro",
+            "longitude": "-8.6535"
+        },
+        ...
+    ]
+}
+</pre>
+</div>
+
+<h3>2. Previsão Meteorológica de Hoje</h3>
+<p>Endpoint: <code>/api/previsao_hoje/&lt;global_id_local&gt;/</code></p>
+<p>Método: GET</p>
+<p>Descrição: Retorna a previsão meteorológica de hoje para a cidade especificada pelo ID.</p>
+<p>Parâmetros:</p>
+<ul>
+    <li><code>global_id_local</code> (int): ID global da cidade.</li>
+</ul>
+<p><a href="{% url 'meteo:api_previsao_hoje' global_id_local=1110600 %}">Ver JSON para Lisboa (ID: 1110600)</a></p>
+<p>Exemplo de Resposta:</p>
+<div class ="pres">
+<pre>
+{
+  "owner": "IPMA",
+  "country": "PT",
+  "data": [
+    {
+      "precipitaProb": "11.0",
+      "tMin": "12.5",
+      "tMax": "21.1",
+      "predWindDir": "NW",
+      "idWeatherType": 3,
+      "classWindSpeed": 2,
+      "longitude": "-9.1286",
+      "forecastDate": "2024-05-22",
+      "latitude": "38.7660"
+    },
+    ...
+  ],
+  "globalIdLocal": 1110600,
+  "dataUpdate": "2024-05-22T19:31:04"
+}
+</pre>
+</div>
+
+<h3>3. Previsão Meteorológica para os Próximos 5 Dias</h3>
+<p>Endpoint: <code>/api/previsao_5_dias/&lt;global_id_local&gt;/</code></p>
+<p>Método: GET</p>
+<p>Descrição: Retorna a previsão meteorológica para os próximos 5 dias para a cidade especificada pelo ID.</p>
+<p>Parâmetros:</p>
+<ul>
+    <li><code>global_id_local</code> (int): ID global da cidade.</li>
+</ul>
+<p><a href="{% url 'meteo:api_previsao_5_dias' global_id_local=1010500 %}">Ver JSON para Aveiro (ID: 1010500)</a></p>
+<p>Exemplo de Resposta:</p>
+<div class ="pres">
+<pre>
+{
+  "owner": "IPMA",
+  "country": "PT",
+  "data": [
+    {
+      "precipitaProb": "96.0",
+      "tMin": "12.9",
+      "tMax": "18.1",
+      "predWindDir": "N",
+      "idWeatherType": 6,
+      "classWindSpeed": 2,
+      "longitude": "-8.6535",
+      "forecastDate": "2024-05-22",
+      "latitude": "40.6413"
+    },
+    ...
+  ],
+  "globalIdLocal": 1010500,
+  "dataUpdate": "2024-05-22T22:31:04"
+}
+</pre>
+</div>
+{% endblock %}

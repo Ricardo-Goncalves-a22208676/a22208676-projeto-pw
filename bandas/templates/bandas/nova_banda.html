@@ -1,0 +1,17 @@
+{% extends 'bandas/layout.html' %}
+
+{% block content %}
+    <h3>Nova Banda</h3>
+
+    <form action="" method="post" enctype='multipart/form-data'>
+    <!-- enctype deve ser definido se houver submissão de ficheiros ou imagens -->
+
+      {% csrf_token %}   <!-- obrigatório nos forms Django -->
+      <table>
+          {{ form }}   <!-- insere input para cada atributo da classe Autor, numa tabela -->
+      </table>
+      <input type="submit" value="Criar banda">
+
+    </form>
+
+{% endblock %}

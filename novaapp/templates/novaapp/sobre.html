@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre</title>
+</head>
+<body>
+    <header>
+        <h1>Sobre</h1>
+        <style>
+            footer {
+                color: gray;
+            }
+            body {
+                background-color: #ADD8E6;
+            }
+            img {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+            }
+            header {
+                text-align: center;
+            }
+            main h2 {
+                text-align: center;
+            }
+        </style>
+        <nav>
+            <a href="{% url 'novaapp:index' %}">Página Inicial</a>
+            <a href="{% url 'novaapp:sobre' %}">Sobre</a>
+            <a href="{% url 'novaapp:interesses' %}">Interesses</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."</h2>
+        <img src="../../../media/novaapp/download1.jpeg" alt="photo of greece">
+        <p>Aenean dolor erat, dapibus eget pulvinar porta, malesuada ut elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc malesuada, purus at convallis laoreet, felis lacus tristique metus, sed pretium augue lorem nec ante. Aenean vitae elit sed ante commodo finibus. Etiam interdum eros et nunc commodo, eget molestie nisl sollicitudin. Ut in mollis eros, at fringilla mi. Proin sed neque convallis, hendrerit lectus at, auctor nisl. Duis diam nunc, vestibulum dignissim ipsum quis, faucibus auctor lectus. Pellentesque tincidunt tempor leo. Curabitur efficitur arcu eget nulla iaculis cursus. Donec vel efficitur orci. Nunc gravida suscipit neque quis scelerisque.</p>
+
+        <p>Etiam ultricies molestie egestas. Sed massa nisl, dictum sit amet nisl at, efficitur facilisis eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec eu magna sed felis tempor rhoncus. Integer tristique euismod sapien, a accumsan dolor ultricies non. Aenean et malesuada augue. Aenean eu leo mollis, imperdiet nisl ut, imperdiet leo. Mauris ornare ut tortor vitae rhoncus. Nulla pretium elit vel est maximus bibendum a in mauris. Aenean varius est ut luctus sagittis. In in quam sagittis ipsum fermentum accumsan. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla rutrum leo vel feugiat consequat. Pellentesque tristique nisl ut ipsum scelerisque, at posuere velit fringilla. Nunc sollicitudin tortor in tortor convallis, in consectetur ligula feugiat.</p>
+
+        <p>Nam consequat blandit nunc, sed cursus arcu pharetra id. Phasellus faucibus, arcu id imperdiet rutrum, sem ipsum aliquam magna, vitae laoreet neque nibh vel neque. In sollicitudin facilisis accumsan. Ut eget justo ac mi bibendum vulputate. Phasellus eros lacus, rhoncus et aliquam in, maximus eu lorem. Vestibulum pellentesque enim sit amet convallis porttitor. Vestibulum id est ut dolor viverra luctus ut id lorem.</p>
+
+        <p>Quisque in felis urna. Ut pretium odio id blandit placerat. Vestibulum ut nisi enim. Phasellus eu enim accumsan, interdum leo et, bibendum risus. Morbi tortor velit, imperdiet sed laoreet eget, laoreet ac turpis. Pellentesque pharetra velit at augue condimentum, id pharetra justo interdum. Vivamus porttitor nunc eget imperdiet consectetur. Integer a tellus dictum, mattis est nec, auctor nulla. Integer varius nibh a posuere venenatis. Proin mattis lobortis arcu, id posuere leo imperdiet blandit. Donec rutrum nunc finibus venenatis iaculis. Nullam metus risus, varius a purus in, lobortis congue lacus. Vestibulum eu nibh diam. Morbi convallis velit velit. Cras bibendum consequat ultrices.</p>
+    </main>
+
+    <footer>
+        <p>© {{ data|date:"j F Y" }} Programação Web, Universidade Lusófona - Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

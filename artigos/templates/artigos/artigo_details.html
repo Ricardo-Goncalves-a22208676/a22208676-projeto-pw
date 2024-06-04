@@ -1,0 +1,81 @@
+{% extends 'artigos/layout.html' %}
+
+{% block title %}
+Detalhes do Artigo - {{ artigo.titulo }}
+{% endblock %}
+
+{% block content %}
+<div class="navigation-links">
+    <a href="{% url 'artigos:autor_detail' artigo.autor.user.username %}" class="nav-link">Voltar para o autor</a>
+</div>
+<h1>{{ artigo.titulo }}</h1>
+<p>{{ artigo.conteudo }}</p>
+{% if comentarios %}
+<h2>Comentários com Classificação</h2>
+<ul>
+{% for comentario in comentarios %}
+    {% if comentario.classificacao %}
+    <li>
+        <p>Autor: {{ comentario.autor.user }}</p>
+        <p>Comentario: {{ comentario.texto }}</p>
+
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'artigos:edita_comentario' artigo.titulo comentario.id%}">
+        <button><i class="fa-solid fa-pen-to-square"></i> Edit Comentario</button>
+        </a>
+        <a href="{% url 'artigos:apaga_comentario' artigo.titulo comentario.id%}">
+        <button><i class="fa-solid fa-eraser"></i> Delete Comentario</button>
+        </a>
+        {% endif %}
+
+        <p>Classificação: {{ comentario.classificacao.valor }}</p>
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'artigos:edita_classificacao' artigo.titulo comentario.classificacao.id%}">
+        <button><i class="fa-solid fa-pen-to-square"></i> Edit Classificação</button>
+        </a>
+        <a href="{% url 'artigos:apaga_classificacao' artigo.titulo comentario.classificacao.id%}">
+        <button><i class="fa-solid fa-eraser"></i> Delete Classificação</button>
+        </a>
+        {% endif %}
+    </li>
+    {% endif %}
+{% endfor %}
+</ul>
+{% endif %}
+{% if classificacoes_sem_comentarios %}
+<h2>Classificações sem Comentários</h2>
+<ul>
+{% for classificacao in classificacoes_sem_comentarios %}
+    <li>
+        <p>Autor: {{ classificacao.autor.user }}</p>
+        <p>Classificação: {{ classificacao.valor }}</p>
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'artigos:edita_classificacao' artigo.titulo classificacao.id%}">
+        <button><i class="fa-solid fa-pen-to-square"></i> Edit Classificação</button>
+        </a>
+        <a href="{% url 'artigos:apaga_classificacao' artigo.titulo classificacao.id%}">
+        <button><i class="fa-solid fa-eraser"></i> Delete Classificação</button>
+        </a>
+        {% endif %}
+
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'artigos:edita_artigo' artigo.titulo%}">
+        <button><i class="fa-solid fa-pen-to-square"></i> Edit artigo</button>
+    </a>
+    <a href="{% url 'artigos:apaga_artigo' artigo.titulo%}">
+        <button><i class="fa-solid fa-eraser"></i> Delete artigo</button>
+    </a>
+    <a href="{% url 'artigos:novo_comentario' artigo.titulo%}">
+        <button><i class="fa-regular fa-square-plus"></i> Novo Comentario</button>
+    </a>
+    <a href="{% url 'artigos:nova_classificacao' artigo.titulo%}">
+        <button><i class="fa-regular fa-square-plus"></i> Nova Classificação</button>
+    </a>
+    {% endif %}
+{% endblock %}

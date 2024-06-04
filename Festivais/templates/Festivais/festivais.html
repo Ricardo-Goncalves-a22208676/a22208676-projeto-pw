@@ -1,0 +1,11 @@
+{% extends 'Festivais/layout.html' %}
+
+{% block content %}
+    <h2>Todos os Festivais</h2>
+    {% for festival in festivais %}
+        <p>
+            <a href="{% url 'Festivais:festival' festival.id %}">{{ festival }}</a>
+            Bandas: {{ festival.bandas.all|join:", " }}
+        </p>
+    {% endfor %}
+{% endblock %}

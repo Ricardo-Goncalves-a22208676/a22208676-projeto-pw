@@ -1,0 +1,53 @@
+/* Estilização do bloco de conteúdo */
+h2 {
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+p {
+    font-size: 1.2rem;
+    color: #555;
+    text-align: center;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+a {
+    display: block;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #007bff;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    background-color: #f8f9fa;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin: 0 auto; /* Centraliza o link */
+    width: fit-content; /* Ajusta a largura do link ao seu conteúdo */
+}
+
+a:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Media Queries para responsividade */
+@media (max-width: 600px) {
+    h2 {
+        font-size: 1.5rem; /* Reduz o tamanho da fonte em telas menores */
+        margin-bottom: 1rem; /* Ajusta o espaçamento */
+    }
+
+    p {
+        font-size: 1rem; /* Reduz o tamanho da fonte em telas menores */
+        margin-bottom: 1.5rem; /* Ajusta o espaçamento */
+    }
+
+    a {
+        font-size: 1rem; /* Reduz o tamanho da fonte em telas menores */
+        padding: 0.5rem 1rem; /* Ajusta o padding para telas menores */
+    }
+}

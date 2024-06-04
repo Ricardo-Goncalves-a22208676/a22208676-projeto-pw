@@ -1,0 +1,104 @@
+{% extends 'curso/layout.html' %}
+
+{% block title %}
+Detalhes da Disciplina - {{ disciplina.nome }}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="navigation-links">
+    <a href="{% url 'curso:curso_detail' disciplina.curso.nome %}" class="nav-link">
+        <i class="fa-solid fa-arrow-left"></i> Voltar para {{curso.nome}}
+    </a>
+</div>
+
+<h1>{{ disciplina.nome }}</h1>
+
+<div class="container">
+    <div class="info">
+        <p><strong>Ano:</strong> {{ disciplina.ano }}</p>
+        <p><strong>Semestre:</strong> {{ disciplina.semestre }}</p>
+        <p><strong>ECTS:</strong> {{ disciplina.ects }}</p>
+        <p><strong>Código da Unidade Curricular:</strong> {{ disciplina.curricular_unit_code }}</p>
+        <p><strong>Área Científica:</strong> {{ disciplina.area_cientifica.nome }}</p>
+
+        {% if projeto %}
+        <a href="{% url 'curso:projeto_detail' disciplina.curso.nome disciplina.nome %}">Ver projeto: {{projeto.nome|upper}}</a>
+        {% else %}
+        <p><em>Nenhum projeto associado a esta disciplina</em></p>
+        {% endif %}
+    </div>
+</div>
+        {% if linguagens %}
+        <div class="section">
+            <h2>Linguagens de Programação</h2>
+            <p class="total">Total: {{ linguagens|length }}</p>
+
+            <ul>
+                {% for linguagem in linguagens %}
+                    <li>
+                        <div class="list">
+                        <p>{{ linguagem.nome }}</p>
+                        </div>
+                        <!--{% if request.user.is_authenticated %}
+                        <a href="{% url 'curso:edita_LinguagemProgramacao' disciplina.curso.nome disciplina.nome linguagem.nome%}">
+                            <button>Edit Linguagem de Programação</button>
+                        </a>
+                        <a href="{% url 'curso:apaga_LinguagemProgramacao' disciplina.curso.nome disciplina.nome linguagem.nome%}">
+                            <button>Delete Linguagem de Programação</button>
+                        </a>
+                        {% endif %}-->
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if docentes %}
+        <div class="section">
+            <h2>Docentes</h2>
+            <p class="total">Total: {{ docentes|length }}</p>
+            <ul>
+                {% for docente in docentes %}
+                    <li>
+                        <div class="list">
+                        <p>{{ docente.nome }}</p>
+                        </div>
+
+                        {% if is_admin %}
+                        <div class="btns">
+                        <a href="{% url 'curso:edita_docente' disciplina.curso.nome disciplina.nome docente.nome%}">
+                            <button><i class="fa-solid fa-pen-to-square"></i> Edit Docente</button>
+                        </a>
+                        <a href="{% url 'curso:apaga_docente' disciplina.curso.nome disciplina.nome docente.nome%}">
+                            <button><i class="fa-solid fa-eraser"></i> Delete Docente</button>
+                        </a>
+                        </div>
+                        {% endif %}
+                    </li>
+
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+    {% if is_admin %}
+    <div class="btns">
+        <a href="{% url 'curso:edita_disciplina' disciplina.curso.nome disciplina.nome%}">
+            <button><i class="fa-solid fa-pen-to-square"></i> Edit disciplina</button>
+        </a>
+        <a href="{% url 'curso:apaga_disciplina' disciplina.curso.nome disciplina.nome %}">
+            <button><i class="fa-solid fa-eraser"></i> Delete disciplina</button>
+        </a>
+        {% if not projeto %}
+        <a href="{% url 'curso:novo_projeto' disciplina.curso.nome disciplina.nome %}">
+            <button><i class="fa-regular fa-square-plus"></i> Novo Projeto</button>
+        </a>
+        {% endif %}
+        <a href="{% url 'curso:novo_docente' disciplina.curso.nome disciplina.nome %}">
+            <button><i class="fa-regular fa-square-plus"></i> Novo Docente</button>
+        </a>
+    </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'bandas/layout.html' %}
+
+{% block title %}
+Detalhes do Álbum - {{ album.titulo }}
+{% endblock %}
+
+{% block content %}
+<a href="{% url 'bandas:band_detail' album.banda.nome %}">
+    <i class="fa-solid fa-arrows-turn-right fa-flip-horizontal fa-lg"></i>
+    Voltar para a banda
+
+</a>
+<div id="main-content">
+<h1>{{ album.titulo }}</h1>
+<img src="{{ album.get_capa_url }}" alt="Capa do álbum {{ album.titulo }}">
+<h2>Músicas</h2>
+<ul>
+{% for musica in musicas %}
+    <li>
+        <a href="{% url 'bandas:song_detail' musica.titulo %}">{{ musica.titulo }}</a>
+        {% if musica.letra %}
+            <i class="fa-solid fa-music"></i>
+        {% endif %}
+    </li>
+{% endfor %}
+</ul>
+</div>
+    <div class="button-group">
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'bandas:edita_album' album.titulo %}">
+        <button><i class="fa-solid fa-pen-to-square"></i> Editar informação do Album</button>
+    </a>
+
+    <a href="{% url 'bandas:apaga_album' album.titulo %}">
+      <button><i class="fa-solid fa-eraser"></i> Apagar Album</button>
+    </a>
+
+    <a href="{% url 'bandas:nova_musica' album.titulo %}">
+      <button><i class="fa-regular fa-square-plus"></i> Criar Musica</button>
+    </a>
+    {% endif %}
+    </div>
+
+
+
+{% endblock %}

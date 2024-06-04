@@ -1,0 +1,35 @@
+{% extends "portfolio/layout.html" %}
+{% load static %}  <!-- Add this line to load static files template tag -->
+
+{% block title %}Home | My Portfolio{% endblock %}
+
+{% block header %}
+    <div class="weather-container">
+        <div class="location"> <i class="fa-solid fa-location-dot"></i> {{ cidade }}</div>
+        <div class="weather-header">
+            <div class="weather-icon">
+                <img src="{{ icon_url }}" alt="Weather Icon">
+            </div>
+        </div>
+        <div class="temperature"> <i class="fa-solid fa-arrow-up-long"></i> {{ temperatura_maxima }}°  <i class="fa-solid fa-arrow-down-long"></i> {{ temperatura_minima }}°</div>
+    </div>
+    <div class="date_time">
+        <i class="fa-regular fa-clock"></i>
+        <div class="time_info">
+            <div id="date"></div>
+        <div id="time"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <img src="{% static 'portfolio/HeroNature.jpg' %}" alt="Hero Image">
+        <div class="hero-content">
+            <h1>Welcome to My Portfolio</h1>
+            <p>Your one-stop solution for web development insights</p>
+        </div>
+    </section>
+{% endblock %}
+
+{% block hero_text %}Explore my projects and get insights into my web development journey.{% endblock %}

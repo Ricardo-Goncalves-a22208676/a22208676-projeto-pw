@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'autenticacao/styles.css' %}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://kit.fontawesome.com/c1593d761b.js" crossorigin="anonymous"></script>
+
+    <style>
+        {% block style %}
+        {% endblock %}
+    </style>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Aqui você pode adicionar o CSS e o JavaScript que deseja usar em todos os seus templates -->
+</head>
+<body>
+    <div class="container">
+    <header id="header">
+    </header>
+
+    <main id="main-content" class="main">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer id="footer">
+    </footer>
+
+    </div>
+</body>
+</html>

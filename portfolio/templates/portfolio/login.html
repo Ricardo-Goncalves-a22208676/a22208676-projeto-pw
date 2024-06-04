@@ -1,0 +1,36 @@
+{% extends 'portfolio/layout.html' %}
+
+{% block content %}
+<div class="login">
+    <h3>Login</h3>
+
+    {% if mensagem %}
+      <p>mensagem: {{ mensagem }}</p>
+    {% endif %}
+    <form action="{% url 'portfolio:login' %}" method="post">
+        {% csrf_token %}
+        <div class="input-group">
+            <input type="text" name="username" placeholder="O seu username" class="input" required>
+            <label class="user-label">Username</label>
+        </div>
+        <div class="input-group">
+            <input type="password" name="password" placeholder="A sua password" class="input" required>
+            <label class="user-label">Password</label>
+        </div>
+        <input type="submit" value="Submit" class="submit-button">
+    </form>
+
+    <div class="navigation-links">
+        <a href="{% url 'reset_password' %}" class="nav-link">
+             Recuperar Palavra-chave
+        </a>
+    </div>
+
+<a href="{% url 'portfolio:index'%}">
+    <button class="buttonspaceLogin">Go Back</button>
+</a>
+</div>
+
+
+
+{% endblock %}

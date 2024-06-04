@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interesses</title>
+</head>
+<body>
+    <header>
+        <h1>Interesses</h1>
+        <style>
+            footer {
+                color: gray;
+            }
+            body {
+                background-color: #ADD8E6;
+            }
+            img {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+            }
+            header {
+                text-align: center;
+            }
+            main h2 {
+                text-align: center;
+            }
+            main p {
+                padding: 10px;
+
+            }
+        </style>
+        <nav>
+            <a href="{% url 'novaapp:index' %}">Página Inicial</a>
+            <a href="{% url 'novaapp:sobre' %}">Sobre</a>
+            <a href="{% url 'novaapp:interesses' %}">Interesses</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</h2>
+
+        <img src="../../../media/novaapp/download2.jpeg" alt="zeuuussss">
+
+        <p>Suspendisse egestas metus ac magna mattis, hendrerit ultrices velit dictum. Pellentesque eget magna ut tellus luctus maximus. Proin ac velit nec velit gravida tempor. Nullam ac porttitor elit, viverra suscipit justo. Aenean interdum mauris ante, varius ornare tellus lobortis vel. Etiam egestas venenatis mauris, at placerat eros faucibus sed. Vivamus non odio lacinia, tincidunt orci sollicitudin, scelerisque nibh. Ut vitae eros sem. Fusce suscipit euismod est vitae malesuada. Aenean a dapibus felis, eu dignissim tellus.</p>
+
+        <p>Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam quis finibus erat, quis placerat mauris. Ut quis tempor nibh, sed dapibus mauris. Praesent et dui finibus, rhoncus libero sit amet, condimentum erat. Quisque dictum tortor in accumsan congue. Vivamus aliquam ipsum ultrices dolor dictum, ac egestas mi dignissim. Duis id dolor tristique odio cursus porttitor eu eget leo. Curabitur sed tortor ut lacus dapibus mollis. Vestibulum placerat mi sed sagittis pretium. Mauris at diam neque.</p>
+
+        <p>In ut faucibus ante. Duis hendrerit, nibh non ornare bibendum, neque metus maximus urna, id dictum mi nisl ac orci. Vivamus pellentesque consequat libero eu sollicitudin. Nullam quis cursus mi. Sed est nulla, efficitur a quam et, euismod ornare tortor. Curabitur in quam gravida, condimentum lorem quis, lobortis tortor. In nec faucibus sapien, id lobortis arcu. Nunc a aliquet ligula, sit amet tincidunt lorem. Donec facilisis elit sit amet libero pretium tempus. Mauris iaculis tincidunt dolor. Nam sollicitudin sapien eget nulla hendrerit, ac convallis arcu aliquam. Duis commodo libero ac velit porttitor viverra. Donec gravida luctus varius.</p>
+    </main>
+
+    <footer>
+        <p>© {{ data|date:"j F Y" }} Programação Web, Universidade Lusófona - Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

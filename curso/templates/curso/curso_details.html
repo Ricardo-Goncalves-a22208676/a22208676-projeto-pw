@@ -1,0 +1,99 @@
+{% extends 'curso/layout.html' %}
+
+{% block title %}
+Detalhes do Curso - {{ curso.nome }}
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ curso.nome }}</h1>
+
+<div class="container">
+    <div class="cursopage">
+        <div class="section">
+            <div class="section-header">
+                <i class="fas fa-info-circle"></i>
+                <h2>Apresentação</h2>
+                <hr>
+            </div>
+            <p>{{ curso.apresentacao }}</p>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <i class="fas fa-bullseye"></i>
+                <h2>Objetivos</h2>
+                <hr>
+            </div>
+            <p>{{ curso.objetivos }}</p>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <i class="fas fa-clipboard-check"></i>
+                <h2>Competências</h2>
+                <hr>
+            </div>
+            <p>{{ curso.competencias }}</p>
+        </div>
+    </div>
+</div>
+{% if disciplinas %}
+        <div class="section">
+            <div class="section-header">
+                <i class="fas fa-book"></i>
+                <h2>Disciplinas</h2>
+                <hr>
+            </div>
+            <p class="total">Total: {{ disciplinas|length }}</p>
+            <ul>
+                {% for disciplina in disciplinas|dictsort:"nome" %}
+                    <li>
+                        <a href="{% url 'curso:disciplina_detail' curso.nome disciplina.nome %}">{{ disciplina.nome }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if projetos %}
+        <div class="section">
+            <div class="section-header">
+                <i class="fas fa-project-diagram"></i>
+                <h2>Projetos</h2>
+                <hr>
+            </div>
+            <p class="total">Total: {{ projetos|length }}</p>
+            <ul>
+                {% for projeto in projetos|dictsort:"nome" %}
+                    <li>
+                        <a href="{% url 'curso:projeto_detail' curso.nome projeto.disciplina.nome %}">{{ projeto.nome|upper }}</a>
+                        {% if projeto.descricao %}
+                        <p>Descrição: {{ projeto.descricao }}</p>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    {% if is_admin %}
+    <div class="btns">
+    <a href="{% url 'curso:edita_area' curso.nome%}">
+        <button><i class="fa-solid fa-pen-to-square"></i> Edit Area Cientifica</button>
+    </a>
+    <a href="{% url 'curso:apaga_area' curso.nome%}">
+        <button><i class="fa-solid fa-eraser"></i> Delete Area Cientifica</button>
+    </a>
+
+    <a href="{% url 'curso:edita_curso' curso.nome%}">
+        <button><i class="fa-solid fa-pen-to-square"></i> Edit Curso</button>
+    </a>
+    <a href="{% url 'curso:apaga_curso' curso.nome%}">
+        <button><i class="fa-solid fa-eraser"></i> Delete Curso</button>
+    </a>
+    <a href="{% url 'curso:nova_disciplina' curso.nome%}">
+        <button><i class="fa-regular fa-square-plus"></i> Nova Disciplina</button>
+    </a>
+    </div>
+    {% endif %}
+{% endblock %}

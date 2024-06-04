@@ -1,0 +1,41 @@
+{% extends 'curso/layout.html' %}
+
+{% block title %}
+Course List
+{% endblock %}
+
+{% block content %}
+{% if cursos %}
+    <h1>Courses</h1>
+    {% regroup cursos by area_cientifica as cursos_grouped %}
+    <ul>
+    {% for area in cursos_grouped %}
+        {% if area.grouper %}
+            <h2>{{ area.grouper }}</h2>
+        {% else %}
+            <h2>Courses not associated with any Scientific Area</h2>
+        {% endif %}
+        <ul>
+        {% for curso in area.list %}
+        <div class="list">
+            <li>
+                <a href="{% url 'curso:curso_detail' curso.nome %}">{{ curso.nome }}</a>
+            </li>
+        </div>
+        {% endfor %}
+        </ul>
+
+    {% endfor %}
+    </ul>
+    {% if is_admin %}
+    <div class="btns">
+    <a href="{% url 'curso:nova_area' %}">
+        <button><i class="fa-regular fa-square-plus"></i> Nova Area Cientifica</button>
+    </a>
+    <a href="{% url 'curso:novo_curso' %}">
+        <button><i class="fa-regular fa-square-plus"></i> Novo Curso</button>
+    </a>
+    </div>
+    {% endif %}
+{% endif %}
+{% endblock %}

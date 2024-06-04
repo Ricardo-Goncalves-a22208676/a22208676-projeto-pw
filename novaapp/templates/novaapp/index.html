@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <style>
+        footer {
+            color: gray;
+        }
+        body {
+            background-color: #ADD8E6;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+        }
+        main h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Nova App</h1>
+        <nav>
+            <a href="{% url 'novaapp:index' %}">Página Inicial</a>
+            <a href="{% url 'novaapp:sobre' %}">Sobre</a>
+            <a href="{% url 'novaapp:interesses' %}">Interesses</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</h2>
+        <img src="../../../media/novaapp/download.jpeg" alt="split-screen comparison of two different depictions of an ancient Greek temple">
+        <p>Nam ac ante dapibus, ullamcorper magna ac, tristique augue. Vivamus porttitor dapibus est, nec ullamcorper elit ultrices sed. Donec sed facilisis metus. Morbi feugiat tellus sed diam aliquam fringilla. Aenean auctor ante neque, sed ullamcorper ex iaculis sit amet. Vivamus tristique mi enim, ac suscipit massa porta et. Etiam pulvinar fringilla odio id vestibulum.</p>
+
+        <p>Pellentesque et porta dui. Nullam pulvinar purus et nulla vulputate auctor. Cras pellentesque placerat quam quis condimentum. Cras at massa vitae felis auctor vehicula ut eu tortor. Nunc risus dui, ullamcorper fermentum tellus in, elementum condimentum tellus. Quisque sit amet tempus est, eget ornare justo. Nam ultricies facilisis lectus, id gravida lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae nisi id nunc feugiat volutpat. Donec nec ipsum diam. Sed semper metus id suscipit pretium.</p>
+
+        <p>Sed nisl nisl, ultrices commodo cursus non, placerat nec arcu. Ut sit amet sem sed ante tempor suscipit non non mauris. Praesent quis sem tellus. Duis ut vestibulum velit. Pellentesque ut blandit quam. Nullam ac vestibulum enim. Donec blandit, massa aliquet malesuada euismod, odio nisl sagittis neque, sed porta enim elit ut eros.</p>
+
+        <p>Etiam aliquet imperdiet lacus, condimentum aliquam eros viverra at. Aliquam eget lacus at diam consectetur egestas. Nullam vel enim est. Aliquam arcu nulla, ornare quis consequat eget, ultricies nec velit. Donec imperdiet turpis non tortor vestibulum fringilla. Duis sapien velit, elementum in facilisis vel, posuere iaculis lectus. Integer imperdiet nunc lectus, dignissim tincidunt diam vehicula at. Nulla commodo elementum tellus, at cursus justo vulputate a. Nulla auctor lacus imperdiet suscipit elementum. Aenean feugiat arcu nec metus pulvinar, hendrerit ultricies mi pretium. Fusce sit amet libero sed enim vestibulum hendrerit in a dui. Phasellus consequat faucibus diam, id interdum ante bibendum id. Vivamus viverra risus ex, eget laoreet libero tincidunt id. Nam ut enim turpis.</p>
+
+        <p>Pellentesque non erat ut quam auctor maximus. Maecenas in turpis nec lacus vehicula finibus. Ut gravida sed enim sit amet sagittis. Fusce libero urna, facilisis vel magna sit amet, rhoncus efficitur diam. Quisque ut luctus turpis. Quisque ac mi vel urna varius vulputate ultricies sit amet orci. Sed vel arcu ac erat placerat tristique id a elit. Aenean nisi diam, gravida vel dui vitae, porttitor imperdiet eros. Fusce facilisis nunc in nibh imperdiet tristique. Sed varius pharetra libero iaculis imperdiet. Sed at posuere nulla.</p>
+    </main>
+
+    <footer>
+        <p>© {{ data|date:"j F Y" }} Programação Web, Universidade Lusófona - Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

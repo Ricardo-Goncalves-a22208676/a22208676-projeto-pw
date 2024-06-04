@@ -1,0 +1,27 @@
+{% extends "meteo/layout.html" %}
+
+{% block title %}Previsão do Tempo para Hoje em {{ cidade }}{% endblock %}
+
+{% block header %}
+<h1>Previsão do Tempo para Hoje em {{ cidade }}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="weather-item">
+    <div class="weather-primary">
+        <img src="{{ icon_url }}" alt="Ícone do Tempo" class="weather-icon">
+        <div>
+            <strong>{{data_label}}</strong>
+            <div class="weather-temperature">{{ temperatura_maxima }}°C</div>
+            <div class="weather-description">Máxima</div>
+            <div class="weather-description">{{ temperatura_minima }}°C Mínima</div>
+        </div>
+    </div>
+    <div class="weather-secondary">
+        <p><span class="highlight"><i class="fa-solid fa-droplet"></i> Precipitação:</span> {{ precipita_prob }}%</p>
+        <p><span class="highlight"><i class="fa-regular fa-compass"></i> Direção do Vento:</span> {{ pred_wind_dir }} <i class="fa-solid fa-arrow-up fa-rotate-by" style="--fa-rotate-angle: {{ wind_direction_angle }}deg;"></i></p>
+        <p><span class="highlight"><i class="fa-solid fa-wind"></i> Velocidade do Vento:</span> {{ class_wind_speed }} km/h</p>
+        <p><span class="highlight"><i class="fa-solid fa-location-crosshairs"></i> Coordenadas:</span> ({{ latitude }}, {{ longitude }})</p>
+    </div>
+</div>
+{% endblock %}

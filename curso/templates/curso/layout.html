@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'curso/styles.css' %}">
+    <link rel="icon" href="{% static 'curso/favicon.ico' %}" type="x-icon">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://kit.fontawesome.com/c1593d761b.js" crossorigin="anonymous"></script>
+
+    <style>
+        {% block style %}
+        {% endblock %}
+    </style>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Aqui você pode adicionar o CSS e o JavaScript que deseja usar em todos os seus templates -->
+</head>
+<body>
+    <div class="container">
+    <header id="header">
+    <nav class="nav-container">
+        <div class="nav-left">
+        <a href="{% url 'curso:index' %}"><i class="fas fa-home"></i> Home</a>
+
+
+        </div>
+        <div class="nav-right">
+        {% if request.user.is_authenticated %}
+        <strong>Username:{{request.user.username}}</strong>
+        <a href="{% url 'curso:logout' %}"><button class='buttonspaceLogout'>Logout</button></a>
+        {% else %}
+        <a href="{% url 'curso:login' %}"><button>Login</button></a>
+        <a href="{% url 'curso:registo' %}"><button>Registar</button></a>
+        {% endif %}
+        </div>
+    </nav>
+    </header>
+
+    <main id="main-content" class="main">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer id="footer">
+        <h6 class="footer-text">Contact us at: support@curso.com</h6>
+    </footer>
+
+    </div>
+</body>
+</html>

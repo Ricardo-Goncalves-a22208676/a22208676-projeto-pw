@@ -1,0 +1,128 @@
+[
+  {
+    "banda": "Led Zeppelin",
+    "titulo": "Led Zeppelin IV",
+    "ano_lancamento": 1971,
+    "musicas": [
+      {"titulo": "Black Dog", "duracao": "4:55"},
+      {"titulo": "Rock and Roll", "duracao": "3:40"},
+      {"titulo": "Stairway to Heaven", "duracao": "8:02"},
+      {"titulo": "Misty Mountain Hop", "duracao": "4:38"},
+      {"titulo": "Four Sticks", "duracao": "4:45"},
+      {"titulo": "Going to California", "duracao": "3:31"},
+      {"titulo": "When the Levee Breaks", "duracao": "7:08"}
+    ]
+  },
+  {
+    "banda": "The Beatles",
+    "titulo": "Abbey Road",
+    "ano_lancamento": 1969,
+    "musicas": [
+      {"titulo": "Come Together", "duracao": "4:19"},
+      {"titulo": "Something", "duracao": "3:03"},
+      {"titulo": "Maxwell's Silver Hammer", "duracao": "3:27"},
+      {"titulo": "Oh! Darling", "duracao": "3:26"},
+      {"titulo": "Octopus's Garden", "duracao": "2:51"},
+      {"titulo": "I Want You (She's So Heavy)", "duracao": "7:47"},
+      {"titulo": "Here Comes The Sun", "duracao": "3:05"}
+    ]
+  },
+
+  {
+    "banda": "Nirvana",
+    "titulo": "Nevermind",
+    "ano_lancamento": 1991,
+    "musicas": [
+      {"titulo": "Smells Like Teen Spirit", "duracao": "5:01"},
+      {"titulo": "In Bloom", "duracao": "4:14"},
+      {"titulo": "Come as You Are", "duracao": "3:39"},
+      {"titulo": "Breed", "duracao": "3:03"},
+      {"titulo": "Lithium", "duracao": "4:17"},
+      {"titulo": "Polly", "duracao": "2:57"},
+      {"titulo": "Territorial Pissings", "duracao": "2:22"}
+    ]
+  },
+
+  {
+    "banda": "Pink Floyd",
+    "titulo": "The Dark Side of the Moon",
+    "ano_lancamento": 1973,
+    "musicas": [
+      {"titulo": "Speak to Me", "duracao": "1:30"},
+      {"titulo": "Breathe", "duracao": "2:43"},
+      {"titulo": "On the Run", "duracao": "3:30"},
+      {"titulo": "Time", "duracao": "6:53"},
+      {"titulo": "The Great Gig in the Sky", "duracao": "4:44"}
+
+    ]
+  },
+  {
+    "banda": "The Rolling Stones",
+    "titulo": "Let It Bleed",
+    "ano_lancamento": 1969,
+    "musicas": [
+      {"titulo": "Gimme Shelter", "duracao": "4:30"},
+      {"titulo": "Love in Vain", "duracao": "4:19"},
+      {"titulo": "Country Honk", "duracao": "3:07"},
+      {"titulo": "Live with Me", "duracao": "3:33"},
+      {"titulo": "Let It Bleed", "duracao": "5:28"}
+
+    ]
+  },
+  {
+    "banda": "Queen",
+    "titulo": "A Night at the Opera",
+    "ano_lancamento": 1975,
+    "musicas": [
+      {"titulo": "Bohemian Rhapsody", "duracao": "5:55"},
+      {"titulo": "Love of My Life", "duracao": "3:38"},
+      {"titulo": "You're My Best Friend", "duracao": "2:52"}
+
+    ]
+  },
+  {
+    "banda": "The Who",
+    "titulo": "Who's Next",
+    "ano_lancamento": 1971,
+    "musicas": [
+      {"titulo": "Baba O'Riley", "duracao": "5:08"},
+      {"titulo": "Bargain", "duracao": "5:34"},
+      {"titulo": "Love Ain't for Keeping", "duracao": "2:10"}
+
+    ]
+  },
+  {
+    "banda": "Guns N' Roses",
+    "titulo": "Appetite for Destruction",
+    "ano_lancamento": 1987,
+    "musicas": [
+      {"titulo": "Welcome to the Jungle", "duracao": "4:31"},
+      {"titulo": "Sweet Child o' Mine", "duracao": "5:56"},
+      {"titulo": "Paradise City", "duracao": "6:46"}
+
+    ]
+  },
+  {
+    "banda": "AC/DC",
+    "titulo": "Back in Black",
+    "ano_lancamento": 1980,
+    "musicas": [
+      {"titulo": "Hells Bells", "duracao": "5:12"},
+      {"titulo": "Shoot to Thrill", "duracao": "5:17"},
+      {"titulo": "Back in Black", "duracao": "4:15"}
+
+    ]
+  },
+  {
+    "banda": "Aerosmith",
+    "titulo": "Toys in the Attic",
+    "ano_lancamento": 1975,
+    "musicas": [
+      {"titulo": "Walk This Way", "duracao": "3:41"},
+      {"titulo": "Sweet Emotion", "duracao": "4:34"},
+      {"titulo": "No More No More", "duracao": "4:34"}
+
+    ]
+  }
+
+]

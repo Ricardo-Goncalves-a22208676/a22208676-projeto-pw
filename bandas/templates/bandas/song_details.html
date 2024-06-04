@@ -1,0 +1,44 @@
+{% extends 'bandas/layout.html' %}
+
+{% block title %}
+Detalhes da Música - {{ musica.titulo }}
+{% endblock %}
+
+{% block content %}
+<a href="{% url 'bandas:album_detail' musica.album.titulo %}">
+    <i class="fa-solid fa-arrows-turn-right fa-flip-horizontal fa-lg"></i>
+    Voltar para o álbum
+    </a>
+
+<div id="main-content">
+
+
+<h1>{{ musica.titulo }}</h1>
+<img src="{{ musica.album.get_capa_url }}" alt="Capa do álbum {{ musica.album.titulo }}">
+{% if musica.spotify_link %}
+    <p><a href="{{ musica.spotify_link }}">Ouça no Spotify</a></p>
+{% endif %}
+
+{% if musica.letra %}
+<div>
+    <p6>Lyrics</p6>
+    <i class="fa-solid fa-music"></i>
+    <p6>:</p6>
+    <p6>{{ musica.letra|linebreaks }}</p6>
+</div>
+{% endif %}
+
+</div>
+    <div class="button-group">
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'bandas:edita_musica' musica.titulo %}">
+        <button><i class="fa-solid fa-pen-to-square"></i> Editar informação da Musica</button>
+    </a>
+
+    <a href="{% url 'bandas:apaga_musica' musica.titulo %}">
+      <button><i class="fa-solid fa-eraser"></i> Apagar Musica</button>
+    </a>
+    {% endif %}
+    </div>
+
+{% endblock %}

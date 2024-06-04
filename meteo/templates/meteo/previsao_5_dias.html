@@ -1,0 +1,49 @@
+{% extends "meteo/layout.html" %}
+
+{% block title %}Previsão do Tempo para os Próximos 5 Dias{% endblock %}
+
+{% block header %}
+<div class="header-container">
+    {% if cidade %}
+        <h1>Previsão do Tempo para {{ cidade }} {{ msg }}</h1>
+    {% endif %}
+
+    <form method="get" action="." class="city-select-form">
+        <label for="city">Cidades:</label>
+        <select id="city" name="global_id_local" onchange="this.form.submit()">
+            <option value="">Selecione uma cidade</option>
+            {% for cidade in cidades %}
+                <option value="{{ cidade.globalIdLocal }}" {% if cidade.globalIdLocal|stringformat:"s" == global_id_local %}selected{% endif %}>
+                    {{ cidade.local }}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
+</div>
+{% endblock %}
+
+{% block content %}
+{% if cidade %}
+    <ul>
+        {% for previsao in previsoes %}
+            <li class="weather-item">
+                <div class="weather-primary">
+                    <img src="{{ previsao.icon_url }}" alt="Ícone do Tempo" class="weather-icon">
+                    <div>
+                        <strong>{{previsao.data_label}}</strong>
+                        <div class="weather-temperature">{{ previsao.temperatura_maxima }}°C</div>
+                        <div class="weather-description">Máxima</div>
+                        <div class="weather-description">{{ previsao.temperatura_minima }}°C Mínima</div>
+                    </div>
+                </div>
+                <div class="weather-secondary">
+                    <p><span class="highlight"><i class="fa-solid fa-droplet"></i> Precipitação:</span> {{ previsao.precipita_prob }}%</p>
+                    <p><span class="highlight"><i class="fa-regular fa-compass"></i> Direção do Vento:</span> {{ previsao.pred_wind_dir }} <i class="fa-solid fa-arrow-up fa-rotate-by" style="--fa-rotate-angle: {{ previsao.wind_direction_angle }}deg;"></i></p>
+                    <p><span class="highlight"><i class="fa-solid fa-wind"></i> Velocidade do Vento:</span> {{ previsao.class_wind_speed }} km/h</p>
+                    <p><span class="highlight"><i class="fa-solid fa-location-crosshairs"></i> Coordenadas:</span> ({{ previsao.latitude }}, {{ previsao.longitude }})</p>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}

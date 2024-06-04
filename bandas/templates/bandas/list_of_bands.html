@@ -1,0 +1,23 @@
+{% extends 'bandas/layout.html' %}
+
+{% block title %}
+Lista de Bandas
+{% endblock %}
+
+{% block content %}
+<h1>Bandas</h1>
+<ul>
+{% for banda in bandas %}
+    <li>
+        <a href="{% url 'bandas:band_detail' banda.nome %}">{{ banda.nome }}</a>
+    </li>
+{% endfor %}
+</ul>
+    <div class="button-group">
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'bandas:nova_banda' %}">
+        <button><i class="fa-regular fa-square-plus"></i> Nova banda</button>
+    </a>
+    {% endif %}
+    </div>
+{% endblock %}

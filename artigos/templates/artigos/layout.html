@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'artigos/styles.css' %}">
+    <link rel="icon" href="{% static 'artigos/favicon.ico' %}" type="x-icon">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://kit.fontawesome.com/c1593d761b.js" crossorigin="anonymous"></script>
+
+    <style>
+        {% block style %}
+        {% endblock %}
+    </style>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <div class="container">
+    <header id="header">
+    <nav class="nav-container">
+    <div class="nav-left">
+        <a href="{% url 'artigos:index' %}">Autor</a>
+        <a href="{% url 'artigos:artigo_list' %}">Artigos</a>
+    </div>
+    <div class="nav-right">
+        {% if request.user.is_authenticated %}
+        Username:{{request.user.username}}
+        <a href="{% url 'artigos:logout' %}"><button>Logout</button></a>
+        {% else %}
+        <div class="button-container">
+          <a href="{% url 'artigos:login' %}">
+              <button>
+                  <span>Login</span>
+              </button>
+          </a>
+          <a href="{% url 'artigos:registo' %}">
+              <button>
+                  <span>Registar</span>
+              </button>
+          </a>
+        </div>
+
+        {% endif %}
+    </div>
+    </nav>
+    </header>
+
+    <main id="main-content" class="main">
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer id="footer">
+            <h6 class="footer-text">Contact us at: support@artigos.com</h6>
+        </footer>
+    </div>
+</body>
+</html>

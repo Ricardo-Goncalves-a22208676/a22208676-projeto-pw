@@ -1,0 +1,38 @@
+{% extends 'curso/layout.html' %}
+
+{% block content %}
+<div class="registar">
+    <h3>Registo</h3>
+
+    <form action="{% url 'curso:registo' %}" method="post">
+        {% csrf_token %}
+        <div class="input-group">
+            <input type="text" name="username" placeholder="O seu username" class="input" required>
+            <label class="user-label">Username</label>
+        </div>
+        <div class="input-group">
+            <input type="text" name="nome" placeholder="O seu nome" class="input" required>
+            <label class="user-label">Nome</label>
+        </div>
+        <div class="input-group">
+            <input type="text" name="apelido" placeholder="O seu apelido" class="input" required>
+            <label class="user-label">Apelido</label>
+        </div>
+        <div class="input-group">
+            <input type="email" name="email" placeholder="O seu email" class="input" required>
+            <label class="user-label">Email</label>
+        </div>
+        <div class="input-group">
+            <input type="password" name="password" placeholder="Defina a sua password" class="input" required>
+            <label class="user-label">Password</label>
+        </div>
+        <input type="submit" value="Criar" class="submit-button">
+    </form>
+
+    <a href="{% url 'curso:login' %}">
+        <button class="buttonspaceLogin">Cancelar</button>
+    </a>
+
+
+</div>
+{% endblock %}

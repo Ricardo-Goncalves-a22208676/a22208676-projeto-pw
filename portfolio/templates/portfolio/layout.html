@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Portfolio{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'portfolio/styles.css' %}">
+    <link rel="icon" href="{% static 'portfolio/favicon.ico' %}" type="x-icon">
+    <script src="https://kit.fontawesome.com/c1593d761b.js" crossorigin="anonymous"></script>
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header>
+        <nav class="menu">
+            {% block header %}{% endblock %}
+            <ul>
+                <li><a href="{% url 'portfolio:index' %}"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="{% url 'portfolio:about_me' %}"><i class="fa-solid fa-user-large"></i> About Me</a></li>
+                <li><a href="{% url 'portfolio:about_site' %}"><i class="fa-solid fa-globe"></i> WebTools</a></li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropbtn"><i class="fa-solid fa-rocket"></i> My Apps</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'meteo:index' %}">Meteo</a>
+                        <a href="{% url 'curso:index' %}">Curso</a>
+                        <a href="{% url 'bandas:index' %}">Bandas</a>
+                        <a href="{% url 'artigos:index' %}">Artigos</a>
+                    </div>
+                </li>
+            </ul>
+            <div class="rightBtns">
+                <div class="adminBtns">
+                {% if request.user.is_authenticated %}
+                <strong class="username">Username:{{request.user.username}}</strong>
+                <a href="{% url 'portfolio:logout' %}">
+                        <button>Logout</button>
+                        </a>
+                {% else %}
+                    <a href="{% url 'portfolio:login' %}" class=loginLink>
+                        <button>Login</button>
+                        </a>
+                    <a href="{% url 'portfolio:registo' %}">
+                        <button>Registo</button>
+                        </a>
+                {% endif %}
+                </div>
+                <div class="toggle">
+                    <input type="checkbox" id="theme-toggle" >
+                  <label></label>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <script src="{% static 'portfolio/script.js' %}"></script>
+</body>
+</html>

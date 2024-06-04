@@ -1,0 +1,48 @@
+{% extends 'bandas/layout.html' %}
+
+{% block title %}
+Detalhes da Banda - {{ banda.nome }}
+{% endblock %}
+
+{% block content %}
+<div id="main-content">
+<h1>{{ banda.nome }}</h1>
+<img src="{{ banda.get_foto_url }}" alt="Foto da Banda {{ banda.nome }}">
+<p>{{ banda.informacoes }}</p>
+
+{% if albuns %}
+<h2>Álbuns</h2>
+<ul>
+{% for album in albuns %}
+    <li>
+        <a href="{% url 'bandas:album_detail' album.titulo %}">{{ album.titulo }}</a>
+    </li>
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if banda.biografia %}
+<h2>Biografia</h2>
+<div class="biografia">
+    <p>{{ banda.biografia }}</p>
+</div>
+{% endif %}
+</div>
+    <div class="button-group">
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'bandas:edita_banda' banda.nome %}">
+        <button><i class="fa-solid fa-pen-to-square"></i> Editar informação da Banda</button>
+    </a>
+
+    <a href="{% url 'bandas:apaga_banda' banda.nome %}">
+      <button><i class="fa-solid fa-eraser"></i> Apagar Banda</button>
+    </a>
+
+    <a href="{% url 'bandas:novo_album' banda.nome %}">
+      <button><i class="fa-regular fa-square-plus"></i> Criar Album</button>
+    </a>
+    {% endif %}
+    </div>
+
+
+{% endblock %}

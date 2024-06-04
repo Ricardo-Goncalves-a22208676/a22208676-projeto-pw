@@ -1,0 +1,40 @@
+{% extends "portfolio/layout.html" %}
+{% load static %}
+
+{% block title %} About My Site | My Portfolio{% endblock %}
+
+{% block content %}
+<div class="parallax">
+    <div class="parallax__layer parallax__layer--base">
+        <div class="content-wrapper">
+            <h1>About My Website</h1>
+            <section>
+                <h2>Tecnologias Utilizadas</h2>
+                <ul class="skills section">
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JavaScript</li>
+                    <li>Python</li>
+                    <li>Django</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Video: Django Hands-on</h2>
+                <p>Watch the video below to understand how Django works based on the MVC model.</p>
+                <video controls>
+                    <source src="{% static 'videos/django_hands_on.mp4' %}" type="video/mp4">
+                    Your browser does not support the video element
+                </video>
+            </section>
+            <section>
+                <h2>Video: Guided Tour</h2>
+                <p>Take a tour of our Django project, its applications, and pages.</p>
+                <video controls>
+                    <source src="{% static 'videos/visita_guiada.mp4' %}" type="video/mp4">
+                    Your browser does not support the video element
+                </video>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

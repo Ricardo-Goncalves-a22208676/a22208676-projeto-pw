@@ -1,0 +1,97 @@
+{% extends 'curso/layout.html' %}
+{% load cursoTags %}
+
+{% block title %}
+Detalhes do Projeto - {{ projeto.id }}
+{% endblock %}
+
+{% block content %}
+
+<div class="navigation-links">
+    <a href="{% url 'curso:curso_detail' disciplina.curso.nome %}" class="nav-link">
+        <i class="fa-solid fa-arrow-left"></i> Voltar para {{curso.nome}}
+    </a>
+    <a href="{% url 'curso:disciplina_detail' curso.nome projeto.disciplina.nome %}" class="nav-link">
+        <i class="fa-solid fa-arrow-left"></i> Voltar para {{ projeto.disciplina }}
+    </a>
+</div>
+
+
+<h1>{{ projeto.nome|ProjectTitleupper }}</h1>
+
+<div class="project-details">
+    <div class="container">
+        <div class="info">
+            {% if projeto.descricao %}
+            <h3>Descrição</h3>
+            <p>{{ projeto.descricao }}</p>
+            {% else %}
+            <p>Não há informações sobre a descricao neste projeto.</p>
+            {% endif %}
+
+            {% if projeto.conceitos_aplicados %}
+            <h3>Conceitos Aplicados</h3>
+            <p>{{ projeto.conceitos_aplicados }}</p>
+            {% endif %}
+
+            {% if projeto.tecnologias_usadas %}
+            <h3>Tecnologias Usadas</h3>
+            <p>{{ projeto.tecnologias_usadas }}</p>
+            {% endif %}
+        </div>
+    </div>
+    {% if linguagens %}
+    <h3>Linguagens de Programação</h3>
+    <p class="total">Total: {{ linguagens|length }}</p>
+
+        <ul>
+        {% for linguagem in linguagens %}
+        <div class="list">
+        <p>{{ linguagem.nome }}</p>
+        </div>
+        {% if is_admin %}
+        <div class="btns">
+            <a href="{% url 'curso:edita_LinguagemProgramacao' disciplina.curso.nome disciplina.nome linguagem.nome%}">
+                <button><i class="fa-solid fa-pen-to-square"></i> Edit Linguagem de Programação</button>
+            </a>
+            <a href="{% url 'curso:apaga_LinguagemProgramacao' disciplina.curso.nome disciplina.nome linguagem.nome%}">
+                <button><i class="fa-solid fa-eraser"></i> Delete Linguagem de Programação</button>
+            </a>
+        </div>
+        {% endif %}
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+
+    {% if projeto.imagem %}
+    <h3>Imagem</h3>
+    <img src="{{ projeto.imagem.url }}" alt="Imagem do projeto">
+    {% endif %}
+
+    <div class="socials">
+        {% if projeto.github_repo %}
+        <a class="icons github" href="{{ projeto.github_repo }}"><i class="fa-brands fa-github"></i></a>
+        {% endif %}
+
+        {% if projeto.video_demo %}
+        <a class="icons youtube" href="{{ projeto.video_demo }}"><i class="fa-brands fa-youtube"></i></a>
+        {% endif %}
+
+    </div>
+
+</div>
+    {% if is_admin %}
+    <div class="btns">
+    <a href="{% url 'curso:edita_projeto' disciplina.curso.nome disciplina.nome%}">
+        <button><i class="fa-solid fa-pen-to-square"></i> Edit Projeto</button>
+    </a>
+    <a href="{% url 'curso:apaga_projeto' disciplina.curso.nome disciplina.nome %}">
+        <button><i class="fa-solid fa-eraser"></i> Delete Projeto</button>
+    </a>
+    <a href="{% url 'curso:nova_LinguagemProgramacao' disciplina.curso.nome disciplina.nome %}">
+        <button><i class="fa-regular fa-square-plus"></i> Nova Linguagem de Programação</button>
+    </a>
+    </div>
+    {% endif %}
+{% endblock %}

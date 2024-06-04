@@ -1,0 +1,355 @@
+/* Esconde mensagens de erro */
+.errorlist {
+    display: none;
+}
+
+/* Aplicando padding e tamanho de fonte aos filhos diretos do container */
+.container > * {
+    padding: 1rem;
+    font-size: 1.2rem; /* Reduzindo o tamanho da fonte para uma aparência mais clean */
+}
+
+/* Definindo áreas do grid */
+header { grid-area: header; }
+nav { grid-area: menu; }
+main { grid-area: main; }
+footer { grid-area: footer; }
+
+/* Configuração do grid para o container */
+div.container {
+    display: grid;
+    grid-template-areas:
+        'header'
+        'main'
+        'footer';
+    gap: 10px;
+    padding: 10px;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+}
+
+/* Estilos de navegação */
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f8f8; /* Ajuste de cor para contraste */
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.nav-left, .nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.nav-left span {
+    margin-right: 20px;
+    font-size: 1rem;
+    color: #333; /* Ajuste de cor para contraste */
+}
+
+.nav-left a, .nav-right a {
+    font-size: 1rem;
+    font-weight: normal;
+    color: #333;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.nav-right a {
+    font-weight: bold;
+}
+
+.nav-container a:hover {
+    text-decoration: underline;
+}
+
+.nav-right {
+    margin-left: 20px; /* Adicionando margem à direita para espaçamento */
+}
+
+.nav-left span, .nav-left a {
+    font-size: 2rem; /* Ajuste o valor conforme necessário */
+    color: #333; /* Ajuste de cor para contraste */
+    font-weight: bold;
+}
+
+button {
+  background: #bcbcbc;
+  border: none;
+  padding: 10px 20px;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 600;
+  width: auto; /* Adjust width to fit content */
+  text-transform: uppercase;
+  cursor: pointer;
+  transform: skew(-21deg);
+  margin-left: 20px; /* Adjust margin for spacing */
+}
+
+span {
+  display: inline-block;
+  transform: skew(21deg);
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 100%;
+  left: 0;
+  background: rgb(20, 20, 20);
+  opacity: 0;
+  z-index: -1;
+  transition: all 0.5s;
+}
+
+button:hover {
+  color: #fff;
+}
+
+button:hover::before {
+  left: 0;
+  right: 0;
+  opacity: 1;
+}
+
+/* Estilos para header, main e footer */
+#header {
+    color: #333;
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #ccc;
+
+
+}
+
+#main-content {
+    margin: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#footer {
+    background-color: #f8f8f8;
+    color: #333;
+    text-align: center;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+
+.footer-text {
+    color: #333;
+    font-size: 1rem;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px; /* Espaçamento entre título e botões */
+}
+
+a {
+  text-decoration: none;
+}
+
+.navigation-links {
+    display: flex;
+    gap: 20px; /* Adjust the gap between links */
+    /*justify-content: center; /* Center the links horizontally */
+    margin-top: 20px; /* Add some margin at the top */
+}
+
+.nav-link {
+    color: black;
+    font-size: 20px;
+    text-decoration: none; /* Remove underline */
+    padding: 6px 10px; /* Add some padding */
+    border-radius: 20px; /* Round the corners */
+    transition: background-color 0.3s, color 0.3s; /* Add transition for hover effect */
+}
+
+.nav-link:hover {
+    background-color: gray;
+    color: white; /* Change text color on hover */
+}
+.nav-link i {
+    margin-right: 8px; /* Space between icon and text */
+}
+
+@media (max-width: 990px) {
+    div.container {
+        grid-template-rows: auto 1fr auto; /* Ajuste os valores conforme necessário para dispositivos móveis */
+    }
+
+    div.container {
+    display: grid;
+    grid-template-areas:
+        'header'
+        'main'
+        'footer';
+    gap: 0px;
+    padding: 0px;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    background-color: #f0f2f5; /* Soft background color for the container */
+    }
+    .container {
+        padding: 0px;
+        grid-template-areas:
+            'header'
+            'main'
+            'footer';
+    }
+
+
+    .user-info {
+        font-size: 1.2rem;
+    }
+    body {
+        font-size: 10px; /* Ajuste conforme necessário para uma fonte menor em dispositivos móveis */
+    }
+
+
+    p, .username, .footer-text {
+        font-size: 0.875rem; /* Ajuste o tamanho do parágrafo e outros textos */
+    }
+
+    button {
+    transform: none; /* Remove skew */
+    transition: none; /* Remove transição */
+    font-size: 0.65rem; /* Tamanho da fonte menor para caber melhor em telas menores */
+    padding: 5px 10px; /* Ajuste do padding para botões menores */
+    margin-left: 0; /* Remove margem esquerda */
+    margin-right: 0; /* Remove margem direita */
+    width: auto; /* Adjust width to fit content */
+    color: black;
+    }
+
+  span {
+    transform: none; /* Remove skew do span */
+  }
+
+  button::before {
+    display: none; /* Remove o pseudo-elemento */
+  }
+
+  button:hover {
+    background-color: #0056b3; /* Cor de fundo ao passar o mouse */
+    color: #fff; /* Cor do texto ao passar o mouse */
+  }
+
+  button:hover::before {
+    display: none; /* Garante que o pseudo-elemento não apareça */
+  }
+
+  .button-container {
+    flex-direction: row; /* Alinha os botões lado a lado */
+    align-items: center; /* Centraliza os botões verticalmente */
+  }
+
+  h1 {
+        font-size: 1.5rem;
+    }
+
+    .section-header i {
+        font-size: 1.25rem;
+    }
+
+    .section-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .input-group {
+        max-width: 100%;
+    }
+
+    .submit-button, .buttonspaceLogin {
+        max-width: 100%;
+    }
+
+    .login, .registar {
+        width: 100%;
+    }
+
+    .nav-left span, .nav-left a {
+        font-size: 1rem;
+    }
+
+    .nav-left a {
+        font-size: 1rem;
+        margin-right: 5px;
+        font-size: 20px;
+    }
+    .nav-right a {
+        font-size: 0.875rem;
+        margin-right: 5px;
+    }
+
+    .button {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+
+    .header-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .navigation-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .content-container {
+        max-width: 100%; /* Ensure full width on smaller screens */
+    }
+    .nav-container {
+        justify-content: space-between; /* Ensure elements are spaced correctly */
+        flex-direction: row; /* Ensure elements are in a row */
+        align-items: center; /* Center align the items */
+    }
+
+    .nav-left, .nav-right {
+        flex: initial;
+        justify-content: flex-start; /* Align nav-left to the start */
+        margin: 0; /* Remove any additional margin */
+    }
+
+    .nav-right {
+        justify-content: flex-end; /* Align nav-right to the end */
+        font-size: 14px;
+    }
+
+    .nav-right .nav-link {
+        margin-left: 10px; /* Adjust margin for better spacing */
+    }
+    .nav-right a {
+    margin-left: 5px; /* Adjust this value to increase or decrease the space */
+    }
+
+    .navigation-links {
+        flex-direction: column;
+        gap: 0px;
+    }
+    .nav-link {
+        font-size: 14px;
+    }
+
+
+
+
+}
