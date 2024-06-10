@@ -1,7 +1,8 @@
 {% extends 'portfolio/layout.html' %}
 
 {% block content %}
-<div class="registar">
+<div class="login">
+    <div class="login-box">
     <h3>Registo</h3>
 
     <form action="{% url 'portfolio:registo' %}" method="post">
@@ -28,11 +29,12 @@
         </div>
         <input type="submit" value="Criar" class="submit-button">
     </form>
-
+    <div class ="goBack">
     <a href="{% url 'portfolio:login' %}">
         <button class="buttonspaceLogin">Cancelar</button>
     </a>
+    </div>
 
-
+</div>
 </div>
 {% endblock %}

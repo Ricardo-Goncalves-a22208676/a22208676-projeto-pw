@@ -76,7 +76,7 @@ Detalhes do Curso - {{ curso.nome }}
             </ul>
         </div>
         {% endif %}
-    {% if is_admin %}
+    {% if request.user.is_authenticated %}
     <div class="btns">
     <a href="{% url 'curso:edita_area' curso.nome%}">
         <button><i class="fa-solid fa-pen-to-square"></i> Edit Area Cientifica</button>

@@ -3,19 +3,6 @@ import requests
 from datetime import datetime
 from django.contrib.auth import models, authenticate, login, logout
 
-def get_wind_direction_angle(direction):
-    directions = {
-        'N': 0,
-        'NE': 45,
-        'E': 90,
-        'SE': 135,
-        'S': 180,
-        'SW': 225,
-        'W': 270,
-        'NW': 315,
-    }
-    return directions.get(direction, 0)
-
 def index(request):
 
     previsao_url = 'https://api.ipma.pt/open-data/forecast/meteorology/cities/daily/1110600.json'
@@ -42,12 +29,6 @@ def index(request):
         'temperatura_minima': previsao_hoje['tMin'],
         'temperatura_maxima': previsao_hoje['tMax'],
         'icon_url': icon_url,
-        'wind_direction_angle': get_wind_direction_angle(previsao_hoje['predWindDir']),
-        'precipita_prob': previsao_hoje['precipitaProb'],
-        'pred_wind_dir': previsao_hoje['predWindDir'],
-        'class_wind_speed': previsao_hoje['classWindSpeed'],
-        'longitude': previsao_hoje['longitude'],
-        'latitude': previsao_hoje['latitude'],
     }
 
     return render(request, 'portfolio/index.html', context)

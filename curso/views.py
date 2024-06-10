@@ -10,18 +10,15 @@ from django.contrib.auth.models import Group
 
 def curso_list_view(request):
     cursos = Curso.objects.all()
-    admin_group = Group.objects.get(name='administrador')
-    is_admin = request.user.is_authenticated and admin_group in request.user.groups.all()
-    context = {'cursos': cursos,'is_admin': is_admin}
+
+    context = {'cursos': cursos}
     return render(request, 'curso/curso_list.html', context)
 
 def curso_detail_view(request, curso_nome):
     curso = Curso.objects.get(nome=curso_nome)
     disciplinas = Disciplina.objects.filter(curso=curso)
     projetos = Projeto.objects.filter(disciplina__in=disciplinas)
-    admin_group = Group.objects.get(name='administrador')
-    is_admin = request.user.is_authenticated and admin_group in request.user.groups.all()
-    context = {'curso': curso, 'disciplinas': disciplinas, 'projetos': projetos,'is_admin': is_admin}
+    context = {'curso': curso, 'disciplinas': disciplinas, 'projetos': projetos}
     return render(request, 'curso/curso_details.html', context)
 
 def disciplina_detail_view(request, curso_nome, disciplina_nome):
@@ -34,9 +31,7 @@ def disciplina_detail_view(request, curso_nome, disciplina_nome):
         projeto = None
         linguagens = None
     docentes = Docente.objects.filter(disciplinas=disciplina)
-    admin_group = Group.objects.get(name='administrador')
-    is_admin = request.user.is_authenticated and admin_group in request.user.groups.all()
-    context = {'projeto': projeto, 'disciplina': disciplina, 'curso': curso, 'linguagens': linguagens, 'docentes': docentes,'is_admin': is_admin}
+    context = {'projeto': projeto, 'disciplina': disciplina, 'curso': curso, 'linguagens': linguagens, 'docentes': docentes}
     return render(request, 'curso/disciplina_details.html', context)
 
 def projeto_detail_view(request, curso_nome, disciplina_nome):
@@ -44,22 +39,29 @@ def projeto_detail_view(request, curso_nome, disciplina_nome):
     disciplina = Disciplina.objects.get(nome=disciplina_nome, curso=curso)
     projeto = Projeto.objects.get(disciplina=disciplina)
     linguagens = LinguagemProgramacao.objects.filter(projetos=projeto)
-    admin_group = Group.objects.get(name='administrador')
-    is_admin = request.user.is_authenticated and admin_group in request.user.groups.all()
-    context = {'projeto': projeto, 'disciplina': disciplina, 'curso': curso, 'linguagens': linguagens,'is_admin': is_admin}
+    context = {'projeto': projeto, 'disciplina': disciplina, 'curso': curso, 'linguagens': linguagens}
     return render(request, 'curso/projeto_details.html', context)
 
-def admin_required(view_func):
-    @wraps(view_func)
-    def wrapped_view(request, *args, **kwargs):
-        admin_group = Group.objects.get(name='administrador')
-        if request.user.is_authenticated and admin_group in request.user.groups.all():
-            return view_func(request, *args, **kwargs)
-        else:
-            return HttpResponseForbidden("Acesso negado. Você não é um administrador.")
-    return wrapped_view
+def admin_required(*admin_group_names):
+    def decorator(view_func):
+        @wraps(view_func)
+        def wrapped_view(request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                return HttpResponseForbidden("Acesso negado. Você não está autenticado.")
 
-@admin_required
+            user_groups = request.user.groups.all()
+            admin_groups = Group.objects.filter(name__in=admin_group_names)
+
+            if any(group in user_groups for group in admin_groups):
+                return view_func(request, *args, **kwargs)
+            else:
+                return HttpResponseForbidden("Acesso negado. Você não é um administrador.")
+
+        return wrapped_view
+
+    return decorator
+
+@admin_required('administrador','curso')
 def nova_areaCientifica_view(request):
     form = areaCientificaForm(request.POST or None, request.FILES)
     if form.is_valid():
@@ -69,7 +71,7 @@ def nova_areaCientifica_view(request):
     context = {'form': form}
     return render(request, 'curso/nova_areaCientifica.html', context)
 
-@admin_required
+@admin_required('administrador','curso')
 def edita_areaCientifica_view(request, curso_nome):
     curso = Curso.objects.get(nome=curso_nome)
     areaCientifica = curso.area_cientifica
@@ -86,14 +88,14 @@ def edita_areaCientifica_view(request, curso_nome):
     context = {'form': form,'curso': curso}
     return render(request, 'curso/editar_areaCientifica.html', context)
 
-@admin_required
+@admin_required('administrador')
 def apaga_areaCientifica_view(request, curso_nome):
     curso = Curso.objects.get(nome=curso_nome)
     areaCientifica = curso.area_cientifica
     areaCientifica.delete()
     return redirect('curso:index')
 
-@admin_required
+@admin_required('administrador','curso')
 def novo_curso_view(request):
     form = cursoForm(request.POST or None, request.FILES)
     if form.is_valid():
@@ -103,7 +105,7 @@ def novo_curso_view(request):
     context = {'form': form}
     return render(request, 'curso/novo_curso.html', context)
 
-@admin_required
+@admin_required('administrador','curso')
 def edita_curso_view(request, curso_nome):
     curso = Curso.objects.get(nome=curso_nome)
 
@@ -119,13 +121,13 @@ def edita_curso_view(request, curso_nome):
     context = {'form': form,'curso': curso}
     return render(request, 'curso/editar_curso.html', context)
 
-@admin_required
+@admin_required('administrador')
 def apaga_curso_view(request, curso_nome):
     curso = Curso.objects.get(nome=curso_nome)
     curso.delete()
     return redirect('curso:index')
 
-@admin_required
+@admin_required('administrador','curso')
 def nova_disciplina_view(request, curso_nome):
     curso = Curso.objects.get(nome=curso_nome)
     areaCientifica = curso.area_cientifica
@@ -142,7 +144,7 @@ def nova_disciplina_view(request, curso_nome):
     context = {'form': form,'curso': curso,'areaCientifica':areaCientifica}
     return render(request, 'curso/nova_disciplina.html', context)
 
-@admin_required
+@admin_required('administrador','curso')
 def edita_disciplina_view(request, curso_nome, disciplina_nome):
     curso = Curso.objects.get(nome=curso_nome)
     disciplina = Disciplina.objects.get(nome=disciplina_nome, curso=curso)
@@ -159,14 +161,14 @@ def edita_disciplina_view(request, curso_nome, disciplina_nome):
     context = {'form': form,'curso': curso,'disciplina': disciplina}
     return render(request, 'curso/editar_disciplina.html', context)
 
-@admin_required
+@admin_required('administrador')
 def apaga_disciplina_view(request, curso_nome, disciplina_nome):
     curso = Curso.objects.get(nome=curso_nome)
     disciplina = Disciplina.objects.get(nome=disciplina_nome, curso=curso)
     disciplina.delete()
     return redirect('curso:curso_detail',curso.nome)
 
-@admin_required
+@admin_required('administrador','curso')
 def novo_projeto_view(request, curso_nome, disciplina_nome):
     curso = Curso.objects.get(nome=curso_nome)
     disciplina = Disciplina.objects.get(nome=disciplina_nome, curso=curso)
@@ -183,7 +185,7 @@ def novo_projeto_view(request, curso_nome, disciplina_nome):
     context = {'form': form,'curso': curso}
     return render(request, 'curso/novo_projeto.html', context)
 
-@admin_required
+@admin_required('administrador','curso')
 def edita_projeto_view(request, curso_nome, disciplina_nome):
     curso = Curso.objects.get(nome=curso_nome)
     disciplina = Disciplina.objects.get(nome=disciplina_nome, curso=curso)
@@ -201,7 +203,7 @@ def edita_projeto_view(request, curso_nome, disciplina_nome):
     context = {'form': form,'curso': curso,'disciplina': disciplina,'projeto':projeto}
     return render(request, 'curso/editar_projeto.html', context)
 
-@admin_required
+@admin_required('administrador')
 def apaga_projeto_view(request, curso_nome, disciplina_nome):
     curso = Curso.objects.get(nome=curso_nome)
     disciplina = Disciplina.objects.get(nome=disciplina_nome, curso=curso)
@@ -209,7 +211,7 @@ def apaga_projeto_view(request, curso_nome, disciplina_nome):
     projeto.delete()
     return redirect('curso:disciplina_detail',curso.nome, disciplina.nome)
 
-@admin_required
+@admin_required('administrador','curso')
 def nova_linguagemProgramacao_view(request, curso_nome, disciplina_nome):
     curso = Curso.objects.get(nome=curso_nome)
     disciplina = Disciplina.objects.get(nome=disciplina_nome, curso=curso)
@@ -227,7 +229,7 @@ def nova_linguagemProgramacao_view(request, curso_nome, disciplina_nome):
     context = {'form': form,'curso': curso,'disciplina':disciplina}
     return render(request, 'curso/novo_linguagemProgramacao.html', context)
 
-@admin_required
+@admin_required('administrador','curso')
 def edita_linguagemProgramacao_view(request, curso_nome, disciplina_nome, linguagem_nome):
     curso = Curso.objects.get(nome=curso_nome)
     disciplina = Disciplina.objects.get(nome=disciplina_nome, curso=curso)
@@ -246,7 +248,7 @@ def edita_linguagemProgramacao_view(request, curso_nome, disciplina_nome, lingua
     context = {'form': form,'curso': curso,'disciplina': disciplina,'projeto':projeto,'linguagem':linguagem}
     return render(request, 'curso/editar_linguagemProgramacao.html', context)
 
-@admin_required
+@admin_required('administrador')
 def apaga_linguagemProgramacao_view(request, curso_nome, disciplina_nome, linguagem_nome):
     curso = Curso.objects.get(nome=curso_nome)
     disciplina = Disciplina.objects.get(nome=disciplina_nome, curso=curso)
@@ -254,8 +256,8 @@ def apaga_linguagemProgramacao_view(request, curso_nome, disciplina_nome, lingua
     linguagem.delete()
     return redirect('curso:projeto_detail',curso.nome, disciplina.nome)
 
-@admin_required
-def nova_docente_view(request, curso_nome, disciplina_nome):
+@admin_required('administrador','curso')
+def novo_docente_view(request, curso_nome, disciplina_nome):
     curso = Curso.objects.get(nome=curso_nome)
     disciplina = Disciplina.objects.get(nome=disciplina_nome, curso=curso)
 
@@ -271,7 +273,7 @@ def nova_docente_view(request, curso_nome, disciplina_nome):
     context = {'form': form,'curso': curso,'disciplinas':disciplina}
     return render(request, 'curso/novo_docente.html', context)
 
-@admin_required
+@admin_required('administrador','curso')
 def edita_docente_view(request, curso_nome, disciplina_nome, docente_nome):
     curso = Curso.objects.get(nome=curso_nome)
     disciplina = Disciplina.objects.get(nome=disciplina_nome, curso=curso)
@@ -289,7 +291,7 @@ def edita_docente_view(request, curso_nome, disciplina_nome, docente_nome):
     context = {'form': form,'curso': curso,'disciplina': disciplina,'docente':docente}
     return render(request, 'curso/editar_docente.html', context)
 
-@admin_required
+@admin_required('administrador')
 def apaga_docente_view(request, curso_nome, disciplina_nome, docente_nome):
     curso = Curso.objects.get(nome=curso_nome)
     disciplina = Disciplina.objects.get(nome=disciplina_nome, curso=curso)

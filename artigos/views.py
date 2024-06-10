@@ -33,17 +33,26 @@ def artigo_detail_view(request, artigo_titulo):
     context = {'artigo': artigo, 'comentarios': comentarios, 'classificacoes': classificacoes, 'classificacoes_sem_comentarios': classificacoes_sem_comentarios}
     return render(request, 'artigos/artigo_details.html', context)
 
-def admin_required(view_func):
-    @wraps(view_func)
-    def wrapped_view(request, *args, **kwargs):
-        admin_group = Group.objects.get(name='administrador')
-        if request.user.is_authenticated and admin_group in request.user.groups.all():
-            return view_func(request, *args, **kwargs)
-        else:
-            return HttpResponseForbidden("Acesso negado. Você não é um administrador.")
-    return wrapped_view
+def admin_required(*admin_group_names):
+    def decorator(view_func):
+        @wraps(view_func)
+        def wrapped_view(request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                return HttpResponseForbidden("Acesso negado. Você não está autenticado.")
 
-@admin_required
+            user_groups = request.user.groups.all()
+            admin_groups = Group.objects.filter(name__in=admin_group_names)
+
+            if any(group in user_groups for group in admin_groups):
+                return view_func(request, *args, **kwargs)
+            else:
+                return HttpResponseForbidden("Acesso negado. Você não é um administrador.")
+
+        return wrapped_view
+
+    return decorator
+
+@admin_required('administrador','artigos')
 def novo_autor_view(request):
     form = autorForm(request.POST or None, request.FILES)
     if form.is_valid():
@@ -53,7 +62,7 @@ def novo_autor_view(request):
     context = {'form': form}
     return render(request, 'artigos/novo_autor.html', context)
 
-@admin_required
+@admin_required('administrador','artigos')
 def edita_autor_view(request, username):
     autor = Autor.objects.get(user__username=username)
     artigos = Artigo.objects.filter(autor=autor)
@@ -70,13 +79,13 @@ def edita_autor_view(request, username):
     context = {'form': form, 'autor':autor, 'artigos':artigos}
     return render(request, 'artigos/edita_autor.html', context)
 
-@admin_required
+@admin_required('administrador')
 def apaga_autor_view(request, username):
     autor = Autor.objects.get(user__username=username)
     autor.delete()
     return redirect('artigos:index')
 
-@admin_required
+@admin_required('administrador','artigos')
 def novo_artigo_view(request):
 
     form = artigoForm(request.POST or None, request.FILES)
@@ -87,7 +96,7 @@ def novo_artigo_view(request):
     context = {'form': form}
     return render(request, 'artigos/novo_artigo.html', context)
 
-@admin_required
+@admin_required('administrador','artigos')
 def edita_artigo_view(request, artigo_titulo):
     artigo = Artigo.objects.get(titulo=artigo_titulo)
     autor = artigo.autor
@@ -103,13 +112,13 @@ def edita_artigo_view(request, artigo_titulo):
     context = {'form': form, 'autor':autor, 'artigo':artigo}
     return render(request, 'artigos/edita_artigo.html', context)
 
-@admin_required
+@admin_required('administrador')
 def apaga_artigo_view(request, artigo_titulo):
     artigo = Artigo.objects.get(titulo=artigo_titulo)
     artigo.delete()
     return redirect('artigos:artigo_list')
 
-@admin_required
+@admin_required('administrador','artigos')
 def novo_comentario_view(request, artigo_titulo):
     artigo = Artigo.objects.get(titulo=artigo_titulo)
     autor = artigo.autor
@@ -126,7 +135,7 @@ def novo_comentario_view(request, artigo_titulo):
         context = {'form': form, 'autor':autor, 'artigo':artigo}
         return render(request, 'artigos/novo_comentario.html', context)
 
-@admin_required
+@admin_required('administrador','artigos')
 def edita_comentario_view(request, artigo_titulo, comentario_id):
     artigo = Artigo.objects.get(titulo=artigo_titulo)
     autor = artigo.autor
@@ -143,14 +152,14 @@ def edita_comentario_view(request, artigo_titulo, comentario_id):
     context = {'form': form, 'autor':autor, 'artigo':artigo, 'comentario':comentario}
     return render(request, 'artigos/edita_comentario.html', context)
 
-@admin_required
+@admin_required('administrador')
 def apaga_comentario_view(request, artigo_titulo, comentario_id):
     artigo = Artigo.objects.get(titulo=artigo_titulo)
     comentario = Comentario.objects.get(id=comentario_id)
     comentario.delete()
     return redirect('artigos:artigo_detail',artigo.titulo)
 
-@admin_required
+@admin_required('administrador','artigos')
 def nova_classificacao_view(request, artigo_titulo):
     artigo = Artigo.objects.get(titulo=artigo_titulo)
     autor = artigo.autor
@@ -167,7 +176,7 @@ def nova_classificacao_view(request, artigo_titulo):
         context = {'form': form, 'autor':autor, 'artigo':artigo}
         return render(request, 'artigos/novo_classificacao.html', context)
 
-@admin_required
+@admin_required('administrador','artigos')
 def edita_classificacao_view(request, artigo_titulo, classificacao_id):
     artigo = Artigo.objects.get(titulo=artigo_titulo)
     autor = artigo.autor
@@ -184,7 +193,7 @@ def edita_classificacao_view(request, artigo_titulo, classificacao_id):
     context = {'form': form, 'autor':autor, 'artigo':artigo, 'classificacao':classificacao}
     return render(request, 'artigos/edita_classificacao.html', context)
 
-@admin_required
+@admin_required('administrador')
 def apaga_classificacao_view(request, artigo_titulo, classificacao_id):
     artigo = Artigo.objects.get(titulo=artigo_titulo)
     classificacao = Classificacao.objects.get(id=classificacao_id)

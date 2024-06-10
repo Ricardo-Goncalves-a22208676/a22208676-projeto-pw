@@ -7,6 +7,11 @@
     --text-color: black;
     --bg-about-me: white;
     --bg-box-about-me: #e0f7fa;
+    --login-box-bg-color: #ffffff;
+    --input-bg-color: #ffffff;
+    --input-border-color-focus: #007bff;
+    --user-label-text: #ffffff;
+    --bg-uni-info:#c9d8fa;
 }
 
 [data-theme="dark"] {
@@ -15,8 +20,13 @@
     --bg-colorG3: #656778;
     --info-container-bg-color: #161617;
     --text-color: white;
-    --bg-about-me: #4b5469;
+    --bg-about-me: rgba(110, 123, 152, 0.4);
     --bg-box-about-me: #6e7b98;
+    --login-box-bg-color: #1e1e1e;
+    --input-bg-color: #333333;
+    --input-border-color-focus: #1e90ff;
+    --user-label-text: #5c5c5c;
+    --bg-uni-info:#93A5CE
 }
 
 body {
@@ -306,7 +316,7 @@ button:hover::before {
     color: var(--text-color);
 }
 .about_me_container section div div{
-    background: #93A5CE;
+    background: var(--bg-uni-info);
     margin: 20px;
     padding: 20px;
     border-radius: 100px;
@@ -355,7 +365,7 @@ button:hover::before {
     color: var(--text-color);
 }
 .parallax section div div{
-    background: #93A5CE;
+    background:var(--bg-uni-info);
     margin: 20px;
     padding: 20px;
     border-radius: 100px;
@@ -412,6 +422,95 @@ video{
 .fa-clock{
     color: var(--text-color);
 }
+
+.login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-box {
+    background-color: var(--login-box-bg-color);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.login-box h3{
+    color: var(--text-color);
+}
+
+.input::placeholder {
+    color: var(--text-color); /* Ensure placeholder text is visible in dark mode */
+    opacity: 0.7; /* Slightly reduce opacity for better readability */
+}
+
+
+.input-group {
+
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+    background-color: var(--input-bg-color);
+    color: var(--text-color);
+}
+
+.input:focus {
+     border-color: var(--input-border-color-focus);
+}
+.goBack{
+    margin-top:10px;
+}
+
+.user-label {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background-color: var(--user-label-text);;
+    padding: 0 5px;
+    font-size: 12px;
+    color: var(--text-color);
+}
+
+.submit-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+.navigation-links {
+    margin-top: 20px;
+}
+
+.nav-link {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: #0056b3;
+}
+
 
 /*Switch for light and dark mode*/
 /* The switch - the box around the slider */

@@ -27,7 +27,7 @@ Course List
 
     {% endfor %}
     </ul>
-    {% if is_admin %}
+    {% if request.user.is_authenticated %}
     <div class="btns">
     <a href="{% url 'curso:nova_area' %}">
         <button><i class="fa-regular fa-square-plus"></i> Nova Area Cientifica</button>

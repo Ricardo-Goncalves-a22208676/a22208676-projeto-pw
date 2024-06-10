@@ -231,7 +231,9 @@ button:hover {
     font-size: 16px;
 }
 
-
+.navigation-links{
+    margin-top:10px;
+}
 
 
 /* Attribute Selectors */

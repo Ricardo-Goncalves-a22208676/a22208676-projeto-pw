@@ -35,17 +35,27 @@ def song_detail_view(request, song_title):
 def htmlAndCss_view(request):
     return render(request, 'bandas/html5-css.html')
 
-def admin_required(view_func):
-    @wraps(view_func)
-    def wrapped_view(request, *args, **kwargs):
-        admin_group = Group.objects.get(name='administrador')
-        if request.user.is_authenticated and admin_group in request.user.groups.all():
-            return view_func(request, *args, **kwargs)
-        else:
-            return HttpResponseForbidden("Acesso negado. Você não é um administrador.")
-    return wrapped_view
+def admin_required(*admin_group_names):
+    def decorator(view_func):
+        @wraps(view_func)
+        def wrapped_view(request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                return HttpResponseForbidden("Acesso negado. Você não está autenticado.")
 
-@admin_required
+            user_groups = request.user.groups.all()
+            admin_groups = Group.objects.filter(name__in=admin_group_names)
+
+            if any(group in user_groups for group in admin_groups):
+                return view_func(request, *args, **kwargs)
+            else:
+                return HttpResponseForbidden("Acesso negado. Você não é um administrador.")
+
+        return wrapped_view
+
+    return decorator
+
+
+@admin_required('administrador','banda')
 def nova_banda_view(request):
     form = bandaForm(request.POST or None, request.FILES)
     if form.is_valid():
@@ -55,7 +65,7 @@ def nova_banda_view(request):
     context = {'form': form}
     return render(request, 'bandas/nova_banda.html', context)
 
-@admin_required
+@admin_required('administrador','banda')
 def edita_banda_view(request, band_name):
     banda = Banda.objects.get(nome=band_name)
 
@@ -71,13 +81,13 @@ def edita_banda_view(request, band_name):
     context = {'form': form, 'banda':banda}
     return render(request, 'bandas/editar_banda.html', context)
 
-@admin_required
+@admin_required('administrador')
 def apaga_banda_view(request, band_name):
     banda = Banda.objects.get(nome=band_name)
     banda.delete()
     return redirect('bandas:index')
 
-@admin_required
+@admin_required('administrador','banda')
 def novo_album_view(request, band_name):
     banda = Banda.objects.get(nome=band_name)
 
@@ -94,7 +104,7 @@ def novo_album_view(request, band_name):
     context = {'form': form, 'banda':banda}
     return render(request, 'bandas/novo_album.html', context)
 
-@admin_required
+@admin_required('administrador','banda')
 def edita_album_view(request, album_title):
     album = Album.objects.get(titulo=album_title)
     banda = album.banda
@@ -110,14 +120,14 @@ def edita_album_view(request, album_title):
     context = {'form': form, 'album': album, 'banda': banda}
     return render(request, 'bandas/editar_album.html', context)
 
-@admin_required
+@admin_required('administrador')
 def apaga_album_view(request, album_title):
     album = Album.objects.get(titulo=album_title)
     banda = album.banda
     album.delete()
     return redirect('bandas:band_detail', banda.nome)
 
-@admin_required
+@admin_required('administrador','banda')
 def nova_musica_view(request, album_title):
     album = Album.objects.get(titulo=album_title)
 
@@ -134,7 +144,7 @@ def nova_musica_view(request, album_title):
     context = {'form': form, 'album': album}
     return render(request, 'bandas/nova_musica.html', context)
 
-@admin_required
+@admin_required('administrador','banda')
 def edita_musica_view(request, song_title):
     musica = Musica.objects.get(titulo=song_title)
     album = musica.album
@@ -150,7 +160,7 @@ def edita_musica_view(request, song_title):
     context = {'form': form, 'album': album, 'musica': musica}
     return render(request, 'bandas/editar_musica.html', context)
 
-@admin_required
+@admin_required('administrador')
 def apaga_musica_view(request, song_title):
     musica = Musica.objects.get(titulo=song_title)
     album = musica.album

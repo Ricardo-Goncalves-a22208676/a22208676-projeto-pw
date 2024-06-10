@@ -66,7 +66,7 @@ Detalhes da Disciplina - {{ disciplina.nome }}
                         <p>{{ docente.nome }}</p>
                         </div>
 
-                        {% if is_admin %}
+                        {% if request.user.is_authenticated %}
                         <div class="btns">
                         <a href="{% url 'curso:edita_docente' disciplina.curso.nome disciplina.nome docente.nome%}">
                             <button><i class="fa-solid fa-pen-to-square"></i> Edit Docente</button>
@@ -83,7 +83,7 @@ Detalhes da Disciplina - {{ disciplina.nome }}
         </div>
         {% endif %}
 
-    {% if is_admin %}
+    {% if request.user.is_authenticated %}
     <div class="btns">
         <a href="{% url 'curso:edita_disciplina' disciplina.curso.nome disciplina.nome%}">
             <button><i class="fa-solid fa-pen-to-square"></i> Edit disciplina</button>
