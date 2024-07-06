@@ -12,6 +12,8 @@ Detalhes da Banda - {{ banda.nome }}
 
 {% if albuns %}
 <h2>Álbuns</h2>
+<p>Total Albums: {{ albuns|length }}</p>
+<h3>Total de músicas: {{ total_musicas }}</h3>
 <ul>
 {% for album in albuns %}
     <li>

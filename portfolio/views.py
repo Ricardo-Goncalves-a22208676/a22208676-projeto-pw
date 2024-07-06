@@ -39,6 +39,9 @@ def about_me(request):
 def about_site(request):
     return render(request, 'portfolio/about_site.html')
 
+def about_automation(request):
+    return render(request, 'portfolio/automation_selenium.html')
+
 def registo_view(request):
     if request.method == "POST":
         models.User.objects.create_user(
@@ -67,6 +70,11 @@ def login_view(request):
             render(request, 'portfolio/login.html', {
                 'mensagem':'Credenciais inválidas'
             })
+    # adicionar
+    if request.user.is_authenticated:
+        return render(request, 'portfolio/user.html')
+    else:
+        return render(request, 'portfolio/login.html')
 
     return render(request, 'portfolio/login.html')
 

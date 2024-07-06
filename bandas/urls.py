@@ -20,5 +20,6 @@ urlpatterns = [
     path('musica/<str:song_title>/apaga', views.apaga_musica_view, name='apaga_musica'),
     path('registo/', views.registo_view, name="registo"),
     path('login/', views.login_view, name="login"),
-    path('logout/', views.logout_view, name="logout")
+    path('logout/', views.logout_view, name="logout"),
+    path('api/bandas/', views.bandas_list_json, name='bandas_list_json'),
 ]

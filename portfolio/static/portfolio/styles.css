@@ -511,6 +511,22 @@ video{
     color: #0056b3;
 }
 
+.automation-details {
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    padding-right: 5%;
+    padding-left: 5%;
+    align-items: center;
+    gap:15px;
+
+}
+
+.automation-details li::before {
+    display: inline-block;
+    text-align: right;
+}
+
 
 /*Switch for light and dark mode*/
 /* The switch - the box around the slider */

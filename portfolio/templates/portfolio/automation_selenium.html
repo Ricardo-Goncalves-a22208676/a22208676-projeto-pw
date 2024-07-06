@@ -1,0 +1,39 @@
+{% extends "portfolio/layout.html" %}
+{% load static %}
+
+{% block title %} Automation | My Portfolio {% endblock %}
+
+{% block content %}
+<div class="parallax">
+    <div class="parallax__layer parallax__layer--base">
+        <div class="content-wrapper">
+            <h1>Automation using Selenium</h1>
+            <section>
+                <h2>Introduction</h2>
+                <p>This project demonstrates the use of Selenium for automating interactions with a web application. Selenium is a powerful tool that allows you to simulate user actions such as clicking links, filling out forms, and navigating through pages, which is particularly useful for testing and repetitive tasks.</p>
+            </section>
+            <section>
+                <h2>Automation Script Details</h2>
+                <p>The script written in Python automates the following interactions on the website:</p>
+                <ol class="automation-details">
+                    <li><strong>Opening the application:</strong> The script begins by navigating to the main page of the application.</li>
+                    <li><strong>Navigating through main pages:</strong> It demonstrates how to navigate to the "About Me" and "WebTools" pages, allowing time for each page to load and be visualized.</li>
+                    <li><strong>Performing login:</strong> The script automates the login process by entering the username and password and submitting the login form.</li>
+                    <li><strong>Accessing the articles section:</strong> Using the dropdown menu, the script navigates to the "Artigos" section.</li>
+                    <li><strong>Creating a new article:</strong> It then clicks on the "Novo artigo" button, fills out the form with the title, content, and other required fields, and submits it.</li>
+                    <li><strong>Listing and displaying the new article:</strong> Finally, the script navigates to the list of articles and scrolls to the newly created article to make it visible.</li>
+                </ol>
+                <p>Below is a video demonstration of the entire automation process:</p>
+                <video controls>
+                    <source src="{% static 'portfolio/automation_selenium.mp4' %}" type="video/mp4">
+                    Your browser does not support the video element.
+                </video>
+            </section>
+            <section>
+                <h2>Conclusion</h2>
+                <p>This automation showcases the capabilities of Selenium in streamlining web interactions. By automating repetitive tasks, it saves time and ensures consistency in testing workflows. This demonstration serves as a foundational example for more complex automation projects.</p>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

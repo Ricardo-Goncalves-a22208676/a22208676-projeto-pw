@@ -1,0 +1,23 @@
+{% extends 'portfolio/layout.html' %}
+
+
+{% block content %}
+<div class="parallax">
+    <div class="parallax__layer parallax__layer--base">
+        <div class="content-wrapper">
+            <h1>Bemvido, {{request.user.first_name}} {{request.user.last_name}}</h1>
+            <section>
+            <ul>
+              <li>Username: {{request.user.username}}</li>
+              <li>First Name: {{request.user.first_name}}</li>
+              <li>Last Name: {{request.user.last_name}}</li>
+              <li>Is Active: {{request.user.is_active}}</li>
+              <li>Is Super User: {{request.user.is_superuser}}</li>
+              <li>Email: {{request.user.email}}</li>
+            </ul>
+            </section>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

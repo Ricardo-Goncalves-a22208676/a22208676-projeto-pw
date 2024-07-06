@@ -4,7 +4,22 @@
 Lista de Bandas
 {% endblock %}
 
+
 {% block content %}
+
+<a href="{% url 'bandas:bandas_list_json' %}">
+    <button>Ver lista de bandas em JSON</button>
+</a>
+
+{% if abbey_road_album %}
+    {% if come_together_song %}
+    <h2>musica preferida</h2>
+        <a href="{% url 'bandas:song_detail' come_together_song.titulo %}">
+            <button>{{ come_together_song.titulo }}</button>
+        </a>
+    {% endif %}
+{% endif %}
+
 <h1>Bandas</h1>
 <ul>
 {% for banda in bandas %}
@@ -12,6 +27,8 @@ Lista de Bandas
         <a href="{% url 'bandas:band_detail' banda.nome %}">{{ banda.nome }}</a>
     </li>
 {% endfor %}
+
+
 </ul>
     <div class="button-group">
     {% if request.user.is_authenticated %}

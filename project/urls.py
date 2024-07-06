@@ -31,4 +31,5 @@ urlpatterns = [
     path('Festivais/', include('Festivais.urls')),
     path('autenticacao/', include('autenticacao.urls')),
     path('meteo/',include('meteo.urls')),
+    path('accounts/', include('allauth.urls')),
 ]

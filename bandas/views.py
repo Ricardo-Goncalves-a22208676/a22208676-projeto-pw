@@ -7,18 +7,40 @@ from django.contrib.auth import logout
 from functools import wraps
 from django.http import HttpResponseForbidden
 from django.contrib.auth.models import Group
+from django.http import JsonResponse
+
 
 
 
 def band_list_view(request):
     bandas = Banda.objects.all()
-    context = {'bandas': bandas}
+    try:
+        abbey_road_album = Album.objects.get(titulo="Abbey Road")
+        come_together_song = Musica.objects.get(album=abbey_road_album, titulo="Come Together")
+    except Album.DoesNotExist:
+        abbey_road_album = None
+        come_together_song = None
+    except Musica.DoesNotExist:
+        come_together_song = None
+
+    context = {
+        'bandas': bandas,
+        'abbey_road_album': abbey_road_album,
+        'come_together_song': come_together_song,
+    }
     return render(request, 'bandas/list_of_bands.html', context)
+
 
 def band_detail_view(request, band_name):
     banda = Banda.objects.get(nome=band_name)
-    albuns = Album.objects.filter(banda=banda)
-    context = {'banda': banda, 'albuns': albuns}
+    albuns = Album.objects.filter(banda=banda).order_by('-titulo')
+    total_musicas = Musica.objects.filter(album__banda=banda).count()
+
+    context = {
+        'banda': banda,
+        'albuns': albuns,
+        'total_musicas': total_musicas
+    }
     return render(request, 'bandas/band_details.html', context)
 
 def album_detail_view(request, album_title):
@@ -34,6 +56,11 @@ def song_detail_view(request, song_title):
 
 def htmlAndCss_view(request):
     return render(request, 'bandas/html5-css.html')
+
+def bandas_list_json(request):
+    bandas = Banda.objects.all()
+    bandas_list = [{'nome': banda.nome} for banda in bandas]
+    return JsonResponse(bandas_list, safe=False)
 
 def admin_required(*admin_group_names):
     def decorator(view_func):
